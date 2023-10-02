@@ -16,7 +16,7 @@ This is a Flutter-based mobile application aimed to interact with OpenSea's API 
 - **Principles from Clean Architecture and Domain-Driven Design**
 - **S.O.L.I.D. principles**
 - **Test Driven Development**
-- **Funtional reactive programming**
+- **Functional reactive programming**
 - **Functional error handling**
 
 ## Technologies Used
