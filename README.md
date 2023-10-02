@@ -1,5 +1,9 @@
 # GlimmerBox
 
+![coverage][coverage_badge]
+[![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
+[![License: MIT][license_badge]][license_link]
+
 ## Overview
 
 This is a Flutter-based mobile application aimed to interact with OpenSea's API to fetch and display NFT collections. It serves as a gallery viewer where each NFT's details and price can be viewed individually.
