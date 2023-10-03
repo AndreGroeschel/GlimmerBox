@@ -1,6 +1,6 @@
 # GlimmerBox
 
-![coverage][coverage_badge]
+[![codecov](https://codecov.io/gh/VonderTech/GlimmerBox/graph/badge.svg?token=XE90BDIFQA)](https://codecov.io/gh/VonderTech/GlimmerBox)
 [![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
 [![License: MIT][license_badge]][license_link]
 
@@ -38,7 +38,6 @@ This is a Flutter-based mobile application aimed to interact with OpenSea's API 
 - Master the display and management of NFTs within a mobile app
 
 
-[coverage_badge]: coverage_badge.svg
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_link]: https://opensource.org/licenses/MIT
 [very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
