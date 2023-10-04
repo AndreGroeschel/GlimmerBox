@@ -151,8 +151,8 @@ app.*.map.json
 # If you don't generate documentation locally you can remove this line.
 doc/api/
 
-# dotenv environment variables file
-.env*
+# environment variables file
+.env
 
 # Avoid committing generated Javascript files:
 *.dart.js
