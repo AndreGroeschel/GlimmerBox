@@ -6,18 +6,18 @@ import 'package:glimmer_box/application/collections/collection_state.dart';
 import 'package:glimmer_box/application/collections/collections_bloc.dart';
 import 'package:glimmer_box/domain/collections/entities/collection.dart';
 import 'package:glimmer_box/domain/collections/entities/collection_page.dart';
-import 'package:glimmer_box/domain/collections/repositories/collection_repository.dart';
 import 'package:glimmer_box/domain/core/failures/open_sea_api_failure.dart';
 import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../../helpers/mocks_fakes.dart';
+
 // Mocking the dependencies
-class MockCollectionRepository extends Mock implements CollectionRepository {}
 
 class MockLogger extends Mock implements Logger {}
 
 void main() {
-  late CollectionRepository collectionRepository;
+  late MockCollectionRepository collectionRepository;
   late Logger logger;
   late CollectionBloc bloc;
 

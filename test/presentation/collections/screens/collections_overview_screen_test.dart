@@ -1,4 +1,3 @@
-import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -8,13 +7,12 @@ import 'package:glimmer_box/application/collections/collections_bloc.dart';
 import 'package:glimmer_box/domain/collections/entities/collection.dart';
 import 'package:glimmer_box/domain/collections/entities/collection_page.dart'
     as domain;
+import 'package:glimmer_box/presentation/collections/screens/collections_overview_screen.dart';
 import 'package:glimmer_box/presentation/collections/widgets/collection_grid.dart';
-import 'package:glimmer_box/presentation/collections/widgets/collections_page.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockCollectionBloc extends MockBloc<CollectionEvent, CollectionState>
-    implements CollectionBloc {}
+import '../../../helpers/mocks_fakes.dart';
 
 void main() {
   // Initialize mocktail settings for null safety
@@ -39,7 +37,7 @@ void main() {
         BlocProvider<CollectionBloc>(
           create: (_) => mockCollectionBloc,
           child: const MaterialApp(
-            home: CollectionsPage(),
+            home: CollectionsOverviewScreen(),
           ),
         ),
       );
@@ -59,7 +57,7 @@ void main() {
         BlocProvider<CollectionBloc>(
           create: (_) => mockCollectionBloc,
           child: const MaterialApp(
-            home: CollectionsPage(),
+            home: CollectionsOverviewScreen(),
           ),
         ),
       );
@@ -93,7 +91,7 @@ void main() {
         BlocProvider<CollectionBloc>(
           create: (_) => mockCollectionBloc,
           child: const MaterialApp(
-            home: CollectionsPage(),
+            home: CollectionsOverviewScreen(),
           ),
         ),
       );
@@ -113,7 +111,7 @@ void main() {
         BlocProvider<CollectionBloc>(
           create: (_) => mockCollectionBloc,
           child: const MaterialApp(
-            home: CollectionsPage(),
+            home: CollectionsOverviewScreen(),
           ),
         ),
       );
@@ -136,7 +134,7 @@ void main() {
         BlocProvider<CollectionBloc>(
           create: (_) => mockCollectionBloc,
           child: const MaterialApp(
-            home: CollectionsPage(),
+            home: CollectionsOverviewScreen(),
           ),
         ),
       );
@@ -165,7 +163,7 @@ void main() {
         BlocProvider<CollectionBloc>.value(
           value: mockCollectionBloc,
           child: const MaterialApp(
-            home: CollectionsPage(),
+            home: CollectionsOverviewScreen(),
           ),
         ),
       );
@@ -185,7 +183,7 @@ void main() {
         BlocProvider<CollectionBloc>.value(
           value: mockCollectionBloc,
           child: const MaterialApp(
-            home: CollectionsPage(),
+            home: CollectionsOverviewScreen(),
           ),
         ),
       );
@@ -194,7 +192,3 @@ void main() {
     });
   });
 }
-
-class FakeCollectionEvent extends Fake implements CollectionEvent {}
-
-class FakeCollectionState extends Fake implements CollectionState {}

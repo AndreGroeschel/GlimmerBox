@@ -951,8 +951,8 @@ class __$$ContractDtoImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ContractDtoImpl implements _ContractDto {
-  const _$ContractDtoImpl({this.address = '', this.chain = ''});
+class _$ContractDtoImpl extends _ContractDto {
+  const _$ContractDtoImpl({this.address = '', this.chain = ''}) : super._();
 
   factory _$ContractDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$ContractDtoImplFromJson(json);
@@ -999,9 +999,10 @@ class _$ContractDtoImpl implements _ContractDto {
   }
 }
 
-abstract class _ContractDto implements ContractDto {
+abstract class _ContractDto extends ContractDto {
   const factory _ContractDto({final String address, final String chain}) =
       _$ContractDtoImpl;
+  const _ContractDto._() : super._();
 
   factory _ContractDto.fromJson(Map<String, dynamic> json) =
       _$ContractDtoImpl.fromJson;

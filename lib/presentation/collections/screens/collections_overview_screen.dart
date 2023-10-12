@@ -5,12 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glimmer_box/application/collections/collection_event.dart';
 import 'package:glimmer_box/application/collections/collection_state.dart';
 import 'package:glimmer_box/application/collections/collections_bloc.dart';
+import 'package:glimmer_box/application/constants.dart';
 import 'package:glimmer_box/presentation/collections/viewmodels/collection_view_model.dart';
 import 'package:glimmer_box/presentation/collections/widgets/collection_grid.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
-class CollectionsPage extends StatelessWidget {
-  const CollectionsPage({super.key});
+class CollectionsOverviewScreen extends StatelessWidget {
+  const CollectionsOverviewScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,8 +53,8 @@ class CollectionsPage extends StatelessWidget {
                         onPressed: () {
                           context.read<CollectionBloc>().add(
                                 LoadCollections(
-                                  chainIdentifier: 'etherium',
-                                  limit: 100,
+                                  chainIdentifier: Constants.defaultChain,
+                                  limit: Constants.maxCollectionsToDisplay,
                                   nextCursor: collectionPage.next,
                                 ),
                               );
@@ -74,7 +75,10 @@ class CollectionsPage extends StatelessWidget {
   Future<void> _handleRefresh(CollectionBloc bloc) {
     final completer = Completer<void>();
     bloc.add(
-      const LoadCollections(chainIdentifier: 'etherium', limit: 100),
+      const LoadCollections(
+        chainIdentifier: Constants.defaultChain,
+        limit: Constants.maxCollectionsToDisplay,
+      ),
     );
     completer.complete();
     return completer.future;

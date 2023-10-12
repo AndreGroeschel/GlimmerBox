@@ -60,7 +60,7 @@ jobs:
         with:
           path: ./coverage/lcov.info
           min_coverage: 100
-          exclude: '**/*.g.dart **/freezed.dart'
+          exclude: '**/*.g.dart **/freezed.dart **/*.injection_container.dart **/*.l10n.dart **/*routes.dart'
 
       - name: ⬆️ Upload to Codecov
         uses: codecov/codecov-action@v3

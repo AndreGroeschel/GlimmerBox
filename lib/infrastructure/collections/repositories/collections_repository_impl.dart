@@ -28,8 +28,8 @@ class CollectionsRepositoryImpl implements CollectionRepository {
         Left.new,
         (collectionsResponseDto) {
           // Convert Dto to Domain and wrap it in a Stream
-          final stream =
-              Stream.value(collectionsResponseDto.toCollectionPage());
+          final stream = Stream.value(collectionsResponseDto.toCollectionPage())
+              .asBroadcastStream();
           return Right(stream);
         },
       );

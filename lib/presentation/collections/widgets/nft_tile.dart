@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:glimmer_box/presentation/collections/viewmodels/collection_view_model.dart';
+import 'package:glimmer_box/presentation/collections/viewmodels/nft_view_model.dart';
 import 'package:octo_image/octo_image.dart';
 
-class CollectionImageTile extends StatelessWidget {
-  const CollectionImageTile({
+class NftTile extends StatelessWidget {
+  const NftTile({
     required this.index,
     required this.width,
     required this.height,
@@ -15,7 +15,7 @@ class CollectionImageTile extends StatelessWidget {
   final int index;
   final int width;
   final int height;
-  final CollectionViewModel viewModel;
+  final NftViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +43,14 @@ class CollectionImageTile extends StatelessWidget {
                 topLeft: Radius.circular(16),
                 topRight: Radius.circular(16),
               ),
+              // child: Container(),
               child: OctoImage(
                 image: CachedNetworkImageProvider(
-                  viewModel.imagePath,
+                  viewModel.imageUrl,
                 ),
-                placeholderBuilder: OctoPlaceholder.circularProgressIndicator(),
+                //placeholderBuilder: OctoPlaceholder.frame(),
+                // progressIndicatorBuilder:
+                //     OctoProgressIndicator.circularProgressIndicator(),
               ),
             ),
           ),

@@ -5,7 +5,6 @@ import 'package:glimmer_box/domain/collections/repositories/collection_repositor
 import 'package:glimmer_box/domain/core/failures/open_sea_api_failure.dart';
 import 'package:logger/logger.dart';
 
-// This BLoC controls the state for asset-related functionality.
 class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
   CollectionBloc({required this.collectionRepository, required this.logger})
       : super(const CollectionState.initial()) {

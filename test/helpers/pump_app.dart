@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:glimmer_box/l10n/l10n.dart';
+import 'package:glimmer_box/presentation/routes.dart';
 
 extension PumpApp on WidgetTester {
-  Future<void> pumpApp(Widget widget) {
+  Future<void> pumpRealRouterApp(
+    Widget Function(Widget child) builder,
+  ) {
     return pumpWidget(
-      MaterialApp(
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: widget,
+      builder(
+        MaterialApp.router(
+          routerConfig: appRouter,
+        ),
       ),
     );
   }

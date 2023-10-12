@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:glimmer_box/domain/collections/entities/collection.dart';
 import 'package:glimmer_box/domain/collections/entities/collection_page.dart';
+import 'package:glimmer_box/domain/collections/entities/contract.dart';
 import 'package:glimmer_box/infrastructure/logger/logger.dart';
 
 part 'collection_dto.freezed.dart';
@@ -104,6 +105,7 @@ class CollectionDto with _$CollectionDto {
       name: name,
       description: description,
       imagePath: imageUrl,
+      contracts: contracts.map((dto) => dto.toContract()).toList(),
     );
   }
 }
@@ -119,8 +121,16 @@ class ContractDto with _$ContractDto {
     /// Blockchain chain name
     @Default('') String chain,
   }) = _ContractDto;
+  const ContractDto._();
 
   /// Creates a [ContractDto] from a map (parsed JSON).
   factory ContractDto.fromJson(Map<String, dynamic> json) =>
       _$ContractDtoFromJson(json);
+
+  Contract toContract() {
+    return Contract(
+      address: address,
+      chain: chain,
+    );
+  }
 }

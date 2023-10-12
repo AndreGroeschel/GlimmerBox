@@ -47,7 +47,8 @@ class DioLoggingInterceptor extends Interceptor {
   /// Logs the message of the error.
   @override
   void onError(DioException exception, ErrorInterceptorHandler handler) {
-    logger.e('Error: ${exception.message}');
+    final error = 'Error: ${exception.message}';
+    logger.e(error);
     super.onError(exception, handler);
   }
 }

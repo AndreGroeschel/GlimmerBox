@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'nft.dart';
+part of 'nft_view_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,28 +15,29 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$Nft {
-  String get identifier => throw _privateConstructorUsedError;
+mixin _$NftViewModel {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $NftCopyWith<Nft> get copyWith => throw _privateConstructorUsedError;
+  $NftViewModelCopyWith<NftViewModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $NftCopyWith<$Res> {
-  factory $NftCopyWith(Nft value, $Res Function(Nft) then) =
-      _$NftCopyWithImpl<$Res, Nft>;
+abstract class $NftViewModelCopyWith<$Res> {
+  factory $NftViewModelCopyWith(
+          NftViewModel value, $Res Function(NftViewModel) then) =
+      _$NftViewModelCopyWithImpl<$Res, NftViewModel>;
   @useResult
-  $Res call(
-      {String identifier, String name, String description, String imageUrl});
+  $Res call({String name, String description, String imageUrl});
 }
 
 /// @nodoc
-class _$NftCopyWithImpl<$Res, $Val extends Nft> implements $NftCopyWith<$Res> {
-  _$NftCopyWithImpl(this._value, this._then);
+class _$NftViewModelCopyWithImpl<$Res, $Val extends NftViewModel>
+    implements $NftViewModelCopyWith<$Res> {
+  _$NftViewModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -46,16 +47,11 @@ class _$NftCopyWithImpl<$Res, $Val extends Nft> implements $NftCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? identifier = null,
     Object? name = null,
     Object? description = null,
     Object? imageUrl = null,
   }) {
     return _then(_value.copyWith(
-      identifier: null == identifier
-          ? _value.identifier
-          : identifier // ignore: cast_nullable_to_non_nullable
-              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -73,34 +69,32 @@ class _$NftCopyWithImpl<$Res, $Val extends Nft> implements $NftCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$$NftImplCopyWith<$Res> implements $NftCopyWith<$Res> {
-  factory _$$NftImplCopyWith(_$NftImpl value, $Res Function(_$NftImpl) then) =
-      __$$NftImplCopyWithImpl<$Res>;
+abstract class _$$NftViewModelImplCopyWith<$Res>
+    implements $NftViewModelCopyWith<$Res> {
+  factory _$$NftViewModelImplCopyWith(
+          _$NftViewModelImpl value, $Res Function(_$NftViewModelImpl) then) =
+      __$$NftViewModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String identifier, String name, String description, String imageUrl});
+  $Res call({String name, String description, String imageUrl});
 }
 
 /// @nodoc
-class __$$NftImplCopyWithImpl<$Res> extends _$NftCopyWithImpl<$Res, _$NftImpl>
-    implements _$$NftImplCopyWith<$Res> {
-  __$$NftImplCopyWithImpl(_$NftImpl _value, $Res Function(_$NftImpl) _then)
+class __$$NftViewModelImplCopyWithImpl<$Res>
+    extends _$NftViewModelCopyWithImpl<$Res, _$NftViewModelImpl>
+    implements _$$NftViewModelImplCopyWith<$Res> {
+  __$$NftViewModelImplCopyWithImpl(
+      _$NftViewModelImpl _value, $Res Function(_$NftViewModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? identifier = null,
     Object? name = null,
     Object? description = null,
     Object? imageUrl = null,
   }) {
-    return _then(_$NftImpl(
-      identifier: null == identifier
-          ? _value.identifier
-          : identifier // ignore: cast_nullable_to_non_nullable
-              as String,
+    return _then(_$NftViewModelImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -119,16 +113,11 @@ class __$$NftImplCopyWithImpl<$Res> extends _$NftCopyWithImpl<$Res, _$NftImpl>
 
 /// @nodoc
 
-class _$NftImpl implements _Nft {
-  const _$NftImpl(
-      {this.identifier = '',
-      this.name = '',
-      this.description = '',
-      this.imageUrl = ''});
+class _$NftViewModelImpl extends _NftViewModel {
+  const _$NftViewModelImpl(
+      {this.name = '', this.description = '', this.imageUrl = ''})
+      : super._();
 
-  @override
-  @JsonKey()
-  final String identifier;
   @override
   @JsonKey()
   final String name;
@@ -141,16 +130,14 @@ class _$NftImpl implements _Nft {
 
   @override
   String toString() {
-    return 'Nft(identifier: $identifier, name: $name, description: $description, imageUrl: $imageUrl)';
+    return 'NftViewModel(name: $name, description: $description, imageUrl: $imageUrl)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$NftImpl &&
-            (identical(other.identifier, identifier) ||
-                other.identifier == identifier) &&
+            other is _$NftViewModelImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -159,25 +146,22 @@ class _$NftImpl implements _Nft {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, identifier, name, description, imageUrl);
+  int get hashCode => Object.hash(runtimeType, name, description, imageUrl);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$NftImplCopyWith<_$NftImpl> get copyWith =>
-      __$$NftImplCopyWithImpl<_$NftImpl>(this, _$identity);
+  _$$NftViewModelImplCopyWith<_$NftViewModelImpl> get copyWith =>
+      __$$NftViewModelImplCopyWithImpl<_$NftViewModelImpl>(this, _$identity);
 }
 
-abstract class _Nft implements Nft {
-  const factory _Nft(
-      {final String identifier,
-      final String name,
+abstract class _NftViewModel extends NftViewModel {
+  const factory _NftViewModel(
+      {final String name,
       final String description,
-      final String imageUrl}) = _$NftImpl;
+      final String imageUrl}) = _$NftViewModelImpl;
+  const _NftViewModel._() : super._();
 
-  @override
-  String get identifier;
   @override
   String get name;
   @override
@@ -186,6 +170,6 @@ abstract class _Nft implements Nft {
   String get imageUrl;
   @override
   @JsonKey(ignore: true)
-  _$$NftImplCopyWith<_$NftImpl> get copyWith =>
+  _$$NftViewModelImplCopyWith<_$NftViewModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

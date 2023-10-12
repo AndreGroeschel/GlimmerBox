@@ -19,6 +19,7 @@ mixin _$Collection {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get imagePath => throw _privateConstructorUsedError;
+  List<Contract> get contracts => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CollectionCopyWith<Collection> get copyWith =>
@@ -31,7 +32,11 @@ abstract class $CollectionCopyWith<$Res> {
           Collection value, $Res Function(Collection) then) =
       _$CollectionCopyWithImpl<$Res, Collection>;
   @useResult
-  $Res call({String name, String description, String imagePath});
+  $Res call(
+      {String name,
+      String description,
+      String imagePath,
+      List<Contract> contracts});
 }
 
 /// @nodoc
@@ -50,6 +55,7 @@ class _$CollectionCopyWithImpl<$Res, $Val extends Collection>
     Object? name = null,
     Object? description = null,
     Object? imagePath = null,
+    Object? contracts = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -64,6 +70,10 @@ class _$CollectionCopyWithImpl<$Res, $Val extends Collection>
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
+      contracts: null == contracts
+          ? _value.contracts
+          : contracts // ignore: cast_nullable_to_non_nullable
+              as List<Contract>,
     ) as $Val);
   }
 }
@@ -76,7 +86,11 @@ abstract class _$$CollectionImplCopyWith<$Res>
       __$$CollectionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String description, String imagePath});
+  $Res call(
+      {String name,
+      String description,
+      String imagePath,
+      List<Contract> contracts});
 }
 
 /// @nodoc
@@ -93,6 +107,7 @@ class __$$CollectionImplCopyWithImpl<$Res>
     Object? name = null,
     Object? description = null,
     Object? imagePath = null,
+    Object? contracts = null,
   }) {
     return _then(_$CollectionImpl(
       name: null == name
@@ -107,6 +122,10 @@ class __$$CollectionImplCopyWithImpl<$Res>
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
+      contracts: null == contracts
+          ? _value._contracts
+          : contracts // ignore: cast_nullable_to_non_nullable
+              as List<Contract>,
     ));
   }
 }
@@ -115,7 +134,11 @@ class __$$CollectionImplCopyWithImpl<$Res>
 
 class _$CollectionImpl implements _Collection {
   const _$CollectionImpl(
-      {this.name = '', this.description = '', this.imagePath = ''});
+      {this.name = '',
+      this.description = '',
+      this.imagePath = '',
+      final List<Contract> contracts = const []})
+      : _contracts = contracts;
 
   @override
   @JsonKey()
@@ -126,10 +149,18 @@ class _$CollectionImpl implements _Collection {
   @override
   @JsonKey()
   final String imagePath;
+  final List<Contract> _contracts;
+  @override
+  @JsonKey()
+  List<Contract> get contracts {
+    if (_contracts is EqualUnmodifiableListView) return _contracts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_contracts);
+  }
 
   @override
   String toString() {
-    return 'Collection(name: $name, description: $description, imagePath: $imagePath)';
+    return 'Collection(name: $name, description: $description, imagePath: $imagePath, contracts: $contracts)';
   }
 
   @override
@@ -141,11 +172,14 @@ class _$CollectionImpl implements _Collection {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.imagePath, imagePath) ||
-                other.imagePath == imagePath));
+                other.imagePath == imagePath) &&
+            const DeepCollectionEquality()
+                .equals(other._contracts, _contracts));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, description, imagePath);
+  int get hashCode => Object.hash(runtimeType, name, description, imagePath,
+      const DeepCollectionEquality().hash(_contracts));
 
   @JsonKey(ignore: true)
   @override
@@ -158,7 +192,8 @@ abstract class _Collection implements Collection {
   const factory _Collection(
       {final String name,
       final String description,
-      final String imagePath}) = _$CollectionImpl;
+      final String imagePath,
+      final List<Contract> contracts}) = _$CollectionImpl;
 
   @override
   String get name;
@@ -166,6 +201,8 @@ abstract class _Collection implements Collection {
   String get description;
   @override
   String get imagePath;
+  @override
+  List<Contract> get contracts;
   @override
   @JsonKey(ignore: true)
   _$$CollectionImplCopyWith<_$CollectionImpl> get copyWith =>

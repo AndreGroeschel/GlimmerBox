@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:glimmer_box/domain/collections/datasources/collection_remote_datasource.dart';
+import 'package:glimmer_box/domain/collections/entities/collection_page.dart';
 import 'package:glimmer_box/domain/core/failures/open_sea_api_failure.dart';
 import 'package:glimmer_box/infrastructure/collections/dtos/collection_dto.dart';
 import 'package:glimmer_box/infrastructure/collections/dtos/nft_dto.dart';
 import 'package:glimmer_box/infrastructure/collections/repositories/collections_repository_impl.dart';
-import 'package:glimmer_box/presentation/collections/widgets/collections_page.dart';
 import 'package:mocktail/mocktail.dart';
 
 // Mocks
@@ -145,7 +145,7 @@ void main() {
         expect(
           result,
           equals(
-            const Left<OpenSeaApiFailure, Stream<CollectionsPage>>(
+            const Left<OpenSeaApiFailure, Stream<CollectionPage>>(
               OpenSeaApiFailure.unknown(),
             ),
           ),
@@ -235,7 +235,7 @@ void main() {
         expect(
           result,
           equals(
-            const Left<OpenSeaApiFailure, Stream<CollectionsPage>>(
+            const Left<OpenSeaApiFailure, Stream<CollectionPage>>(
               OpenSeaApiFailure.unknown(),
             ),
           ),

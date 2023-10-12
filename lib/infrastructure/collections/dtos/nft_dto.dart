@@ -29,7 +29,8 @@ class NftDto with _$NftDto {
     @Default('') String description,
 
     /// Image URL for the NFT
-    @Default('') String imageUrl,
+    // ignore: invalid_annotation_target
+    @JsonKey(name: 'image_url') @Default('') String imageUrl,
 
     /// Metadata URL for the NFT
     @Default('') String metadataUrl,
@@ -56,6 +57,7 @@ class NftDto with _$NftDto {
       identifier: identifier,
       name: name,
       description: description,
+      imageUrl: imageUrl,
     );
   }
 }
