@@ -27,7 +27,7 @@ dependencies:
   logger: ^2.0.2+1
   mocktail_image_network: ^1.0.0
   octo_image: ^2.0.0
-  retrofit: ^4.0.2
+  retrofit: ^4.0.3
 
 dev_dependencies:
   bloc_test: ^9.1.4
