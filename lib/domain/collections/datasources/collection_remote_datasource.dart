@@ -44,4 +44,21 @@ abstract class CollectionRemoteDataSource {
     int limit = 50,
     String next = '',
   });
+
+  /// Fetches OpenSea NFT details by [chain] and by contract
+  ///
+  /// [chain] The blockchain on which to filter the results.
+  ///
+  /// [address] is the unique public blockchain identifier for the contract
+  /// or wallet.
+  ///
+  /// [identifier] The NFT token id.
+  ///
+  /// Returns [Either] with [OpenSeaApiFailure] for failures
+  /// and [CollectionsResponseDto] for successful retrieval.
+  Future<Either<OpenSeaApiFailure, NftDto>> getNftDetails({
+    required String chain,
+    required String address,
+    required String identifier,
+  });
 }

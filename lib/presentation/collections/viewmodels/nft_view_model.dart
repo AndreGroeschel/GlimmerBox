@@ -9,6 +9,8 @@ class NftViewModel with _$NftViewModel {
     @Default('') String name,
     @Default('') String description,
     @Default('') String imageUrl,
+    @Default('') String contract,
+    @Default('') String identifier,
   }) = _NftViewModel;
   const NftViewModel._();
 
@@ -18,6 +20,8 @@ class NftViewModel with _$NftViewModel {
       name: nft.name,
       description: nft.description,
       imageUrl: nft.imageUrl,
+      contract: nft.contract,
+      identifier: nft.identifier,
     );
   }
 }

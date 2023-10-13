@@ -46,9 +46,6 @@ mixin _$NftDto {
   /// Metadata URL for the NFT
   String get metadataUrl => throw _privateConstructorUsedError;
 
-  /// Creation timestamp
-  String get createdAt => throw _privateConstructorUsedError;
-
   /// Last update timestamp
   String get updatedAt => throw _privateConstructorUsedError;
 
@@ -57,6 +54,24 @@ mixin _$NftDto {
 
   /// If the NFT is NSFW
   bool get isNsfw => throw _privateConstructorUsedError;
+
+  /// URL for any associated animation
+  String get animationUrl => throw _privateConstructorUsedError;
+
+  /// Flag indicating if the NFT is considered suspicious
+  bool get isSuspicious => throw _privateConstructorUsedError;
+
+  /// The creator's address
+  String get creator => throw _privateConstructorUsedError;
+
+  /// List of owners of the NFT
+  List<OwnerDto> get owners => throw _privateConstructorUsedError;
+
+  /// Associated traits of the NFT
+  List<TraitDto> get traits => throw _privateConstructorUsedError;
+
+  /// Rarity data for the NFT
+  RarityDto? get rarity => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -77,10 +92,17 @@ abstract class $NftDtoCopyWith<$Res> {
       String description,
       @JsonKey(name: 'image_url') String imageUrl,
       String metadataUrl,
-      String createdAt,
       String updatedAt,
       bool isDisabled,
-      bool isNsfw});
+      bool isNsfw,
+      String animationUrl,
+      bool isSuspicious,
+      String creator,
+      List<OwnerDto> owners,
+      List<TraitDto> traits,
+      RarityDto? rarity});
+
+  $RarityDtoCopyWith<$Res>? get rarity;
 }
 
 /// @nodoc
@@ -104,10 +126,15 @@ class _$NftDtoCopyWithImpl<$Res, $Val extends NftDto>
     Object? description = null,
     Object? imageUrl = null,
     Object? metadataUrl = null,
-    Object? createdAt = null,
     Object? updatedAt = null,
     Object? isDisabled = null,
     Object? isNsfw = null,
+    Object? animationUrl = null,
+    Object? isSuspicious = null,
+    Object? creator = null,
+    Object? owners = null,
+    Object? traits = null,
+    Object? rarity = freezed,
   }) {
     return _then(_value.copyWith(
       identifier: null == identifier
@@ -142,10 +169,6 @@ class _$NftDtoCopyWithImpl<$Res, $Val extends NftDto>
           ? _value.metadataUrl
           : metadataUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -158,7 +181,43 @@ class _$NftDtoCopyWithImpl<$Res, $Val extends NftDto>
           ? _value.isNsfw
           : isNsfw // ignore: cast_nullable_to_non_nullable
               as bool,
+      animationUrl: null == animationUrl
+          ? _value.animationUrl
+          : animationUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      isSuspicious: null == isSuspicious
+          ? _value.isSuspicious
+          : isSuspicious // ignore: cast_nullable_to_non_nullable
+              as bool,
+      creator: null == creator
+          ? _value.creator
+          : creator // ignore: cast_nullable_to_non_nullable
+              as String,
+      owners: null == owners
+          ? _value.owners
+          : owners // ignore: cast_nullable_to_non_nullable
+              as List<OwnerDto>,
+      traits: null == traits
+          ? _value.traits
+          : traits // ignore: cast_nullable_to_non_nullable
+              as List<TraitDto>,
+      rarity: freezed == rarity
+          ? _value.rarity
+          : rarity // ignore: cast_nullable_to_non_nullable
+              as RarityDto?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RarityDtoCopyWith<$Res>? get rarity {
+    if (_value.rarity == null) {
+      return null;
+    }
+
+    return $RarityDtoCopyWith<$Res>(_value.rarity!, (value) {
+      return _then(_value.copyWith(rarity: value) as $Val);
+    });
   }
 }
 
@@ -178,10 +237,18 @@ abstract class _$$NftDtoImplCopyWith<$Res> implements $NftDtoCopyWith<$Res> {
       String description,
       @JsonKey(name: 'image_url') String imageUrl,
       String metadataUrl,
-      String createdAt,
       String updatedAt,
       bool isDisabled,
-      bool isNsfw});
+      bool isNsfw,
+      String animationUrl,
+      bool isSuspicious,
+      String creator,
+      List<OwnerDto> owners,
+      List<TraitDto> traits,
+      RarityDto? rarity});
+
+  @override
+  $RarityDtoCopyWith<$Res>? get rarity;
 }
 
 /// @nodoc
@@ -203,10 +270,15 @@ class __$$NftDtoImplCopyWithImpl<$Res>
     Object? description = null,
     Object? imageUrl = null,
     Object? metadataUrl = null,
-    Object? createdAt = null,
     Object? updatedAt = null,
     Object? isDisabled = null,
     Object? isNsfw = null,
+    Object? animationUrl = null,
+    Object? isSuspicious = null,
+    Object? creator = null,
+    Object? owners = null,
+    Object? traits = null,
+    Object? rarity = freezed,
   }) {
     return _then(_$NftDtoImpl(
       identifier: null == identifier
@@ -241,10 +313,6 @@ class __$$NftDtoImplCopyWithImpl<$Res>
           ? _value.metadataUrl
           : metadataUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -257,6 +325,30 @@ class __$$NftDtoImplCopyWithImpl<$Res>
           ? _value.isNsfw
           : isNsfw // ignore: cast_nullable_to_non_nullable
               as bool,
+      animationUrl: null == animationUrl
+          ? _value.animationUrl
+          : animationUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      isSuspicious: null == isSuspicious
+          ? _value.isSuspicious
+          : isSuspicious // ignore: cast_nullable_to_non_nullable
+              as bool,
+      creator: null == creator
+          ? _value.creator
+          : creator // ignore: cast_nullable_to_non_nullable
+              as String,
+      owners: null == owners
+          ? _value._owners
+          : owners // ignore: cast_nullable_to_non_nullable
+              as List<OwnerDto>,
+      traits: null == traits
+          ? _value._traits
+          : traits // ignore: cast_nullable_to_non_nullable
+              as List<TraitDto>,
+      rarity: freezed == rarity
+          ? _value.rarity
+          : rarity // ignore: cast_nullable_to_non_nullable
+              as RarityDto?,
     ));
   }
 }
@@ -273,11 +365,18 @@ class _$NftDtoImpl extends _NftDto {
       this.description = '',
       @JsonKey(name: 'image_url') this.imageUrl = '',
       this.metadataUrl = '',
-      this.createdAt = '',
       this.updatedAt = '',
       this.isDisabled = false,
-      this.isNsfw = false})
-      : super._();
+      this.isNsfw = false,
+      this.animationUrl = '',
+      this.isSuspicious = false,
+      this.creator = '',
+      final List<OwnerDto> owners = const [],
+      final List<TraitDto> traits = const [],
+      this.rarity})
+      : _owners = owners,
+        _traits = traits,
+        super._();
 
   factory _$NftDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$NftDtoImplFromJson(json);
@@ -323,11 +422,6 @@ class _$NftDtoImpl extends _NftDto {
   @JsonKey()
   final String metadataUrl;
 
-  /// Creation timestamp
-  @override
-  @JsonKey()
-  final String createdAt;
-
   /// Last update timestamp
   @override
   @JsonKey()
@@ -343,9 +437,52 @@ class _$NftDtoImpl extends _NftDto {
   @JsonKey()
   final bool isNsfw;
 
+  /// URL for any associated animation
+  @override
+  @JsonKey()
+  final String animationUrl;
+
+  /// Flag indicating if the NFT is considered suspicious
+  @override
+  @JsonKey()
+  final bool isSuspicious;
+
+  /// The creator's address
+  @override
+  @JsonKey()
+  final String creator;
+
+  /// List of owners of the NFT
+  final List<OwnerDto> _owners;
+
+  /// List of owners of the NFT
+  @override
+  @JsonKey()
+  List<OwnerDto> get owners {
+    if (_owners is EqualUnmodifiableListView) return _owners;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_owners);
+  }
+
+  /// Associated traits of the NFT
+  final List<TraitDto> _traits;
+
+  /// Associated traits of the NFT
+  @override
+  @JsonKey()
+  List<TraitDto> get traits {
+    if (_traits is EqualUnmodifiableListView) return _traits;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_traits);
+  }
+
+  /// Rarity data for the NFT
+  @override
+  final RarityDto? rarity;
+
   @override
   String toString() {
-    return 'NftDto(identifier: $identifier, collection: $collection, contract: $contract, tokenStandard: $tokenStandard, name: $name, description: $description, imageUrl: $imageUrl, metadataUrl: $metadataUrl, createdAt: $createdAt, updatedAt: $updatedAt, isDisabled: $isDisabled, isNsfw: $isNsfw)';
+    return 'NftDto(identifier: $identifier, collection: $collection, contract: $contract, tokenStandard: $tokenStandard, name: $name, description: $description, imageUrl: $imageUrl, metadataUrl: $metadataUrl, updatedAt: $updatedAt, isDisabled: $isDisabled, isNsfw: $isNsfw, animationUrl: $animationUrl, isSuspicious: $isSuspicious, creator: $creator, owners: $owners, traits: $traits, rarity: $rarity)';
   }
 
   @override
@@ -368,13 +505,19 @@ class _$NftDtoImpl extends _NftDto {
                 other.imageUrl == imageUrl) &&
             (identical(other.metadataUrl, metadataUrl) ||
                 other.metadataUrl == metadataUrl) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
             (identical(other.isDisabled, isDisabled) ||
                 other.isDisabled == isDisabled) &&
-            (identical(other.isNsfw, isNsfw) || other.isNsfw == isNsfw));
+            (identical(other.isNsfw, isNsfw) || other.isNsfw == isNsfw) &&
+            (identical(other.animationUrl, animationUrl) ||
+                other.animationUrl == animationUrl) &&
+            (identical(other.isSuspicious, isSuspicious) ||
+                other.isSuspicious == isSuspicious) &&
+            (identical(other.creator, creator) || other.creator == creator) &&
+            const DeepCollectionEquality().equals(other._owners, _owners) &&
+            const DeepCollectionEquality().equals(other._traits, _traits) &&
+            (identical(other.rarity, rarity) || other.rarity == rarity));
   }
 
   @JsonKey(ignore: true)
@@ -389,10 +532,15 @@ class _$NftDtoImpl extends _NftDto {
       description,
       imageUrl,
       metadataUrl,
-      createdAt,
       updatedAt,
       isDisabled,
-      isNsfw);
+      isNsfw,
+      animationUrl,
+      isSuspicious,
+      creator,
+      const DeepCollectionEquality().hash(_owners),
+      const DeepCollectionEquality().hash(_traits),
+      rarity);
 
   @JsonKey(ignore: true)
   @override
@@ -418,10 +566,15 @@ abstract class _NftDto extends NftDto {
       final String description,
       @JsonKey(name: 'image_url') final String imageUrl,
       final String metadataUrl,
-      final String createdAt,
       final String updatedAt,
       final bool isDisabled,
-      final bool isNsfw}) = _$NftDtoImpl;
+      final bool isNsfw,
+      final String animationUrl,
+      final bool isSuspicious,
+      final String creator,
+      final List<OwnerDto> owners,
+      final List<TraitDto> traits,
+      final RarityDto? rarity}) = _$NftDtoImpl;
   const _NftDto._() : super._();
 
   factory _NftDto.fromJson(Map<String, dynamic> json) = _$NftDtoImpl.fromJson;
@@ -462,10 +615,6 @@ abstract class _NftDto extends NftDto {
   String get metadataUrl;
   @override
 
-  /// Creation timestamp
-  String get createdAt;
-  @override
-
   /// Last update timestamp
   String get updatedAt;
   @override
@@ -476,6 +625,30 @@ abstract class _NftDto extends NftDto {
 
   /// If the NFT is NSFW
   bool get isNsfw;
+  @override
+
+  /// URL for any associated animation
+  String get animationUrl;
+  @override
+
+  /// Flag indicating if the NFT is considered suspicious
+  bool get isSuspicious;
+  @override
+
+  /// The creator's address
+  String get creator;
+  @override
+
+  /// List of owners of the NFT
+  List<OwnerDto> get owners;
+  @override
+
+  /// Associated traits of the NFT
+  List<TraitDto> get traits;
+  @override
+
+  /// Rarity data for the NFT
+  RarityDto? get rarity;
   @override
   @JsonKey(ignore: true)
   _$$NftDtoImplCopyWith<_$NftDtoImpl> get copyWith =>
@@ -657,5 +830,155 @@ abstract class _NftsResponseDto extends NftsResponseDto {
   @override
   @JsonKey(ignore: true)
   _$$NftsResponseDtoImplCopyWith<_$NftsResponseDtoImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+NftWrapperDto _$NftWrapperDtoFromJson(Map<String, dynamic> json) {
+  return _NftWrapperDto.fromJson(json);
+}
+
+/// @nodoc
+mixin _$NftWrapperDto {
+  NftDto get nft => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $NftWrapperDtoCopyWith<NftWrapperDto> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $NftWrapperDtoCopyWith<$Res> {
+  factory $NftWrapperDtoCopyWith(
+          NftWrapperDto value, $Res Function(NftWrapperDto) then) =
+      _$NftWrapperDtoCopyWithImpl<$Res, NftWrapperDto>;
+  @useResult
+  $Res call({NftDto nft});
+
+  $NftDtoCopyWith<$Res> get nft;
+}
+
+/// @nodoc
+class _$NftWrapperDtoCopyWithImpl<$Res, $Val extends NftWrapperDto>
+    implements $NftWrapperDtoCopyWith<$Res> {
+  _$NftWrapperDtoCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? nft = null,
+  }) {
+    return _then(_value.copyWith(
+      nft: null == nft
+          ? _value.nft
+          : nft // ignore: cast_nullable_to_non_nullable
+              as NftDto,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $NftDtoCopyWith<$Res> get nft {
+    return $NftDtoCopyWith<$Res>(_value.nft, (value) {
+      return _then(_value.copyWith(nft: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$NftWrapperDtoImplCopyWith<$Res>
+    implements $NftWrapperDtoCopyWith<$Res> {
+  factory _$$NftWrapperDtoImplCopyWith(
+          _$NftWrapperDtoImpl value, $Res Function(_$NftWrapperDtoImpl) then) =
+      __$$NftWrapperDtoImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({NftDto nft});
+
+  @override
+  $NftDtoCopyWith<$Res> get nft;
+}
+
+/// @nodoc
+class __$$NftWrapperDtoImplCopyWithImpl<$Res>
+    extends _$NftWrapperDtoCopyWithImpl<$Res, _$NftWrapperDtoImpl>
+    implements _$$NftWrapperDtoImplCopyWith<$Res> {
+  __$$NftWrapperDtoImplCopyWithImpl(
+      _$NftWrapperDtoImpl _value, $Res Function(_$NftWrapperDtoImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? nft = null,
+  }) {
+    return _then(_$NftWrapperDtoImpl(
+      nft: null == nft
+          ? _value.nft
+          : nft // ignore: cast_nullable_to_non_nullable
+              as NftDto,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$NftWrapperDtoImpl implements _NftWrapperDto {
+  const _$NftWrapperDtoImpl({required this.nft});
+
+  factory _$NftWrapperDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NftWrapperDtoImplFromJson(json);
+
+  @override
+  final NftDto nft;
+
+  @override
+  String toString() {
+    return 'NftWrapperDto(nft: $nft)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NftWrapperDtoImpl &&
+            (identical(other.nft, nft) || other.nft == nft));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, nft);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NftWrapperDtoImplCopyWith<_$NftWrapperDtoImpl> get copyWith =>
+      __$$NftWrapperDtoImplCopyWithImpl<_$NftWrapperDtoImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$NftWrapperDtoImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _NftWrapperDto implements NftWrapperDto {
+  const factory _NftWrapperDto({required final NftDto nft}) =
+      _$NftWrapperDtoImpl;
+
+  factory _NftWrapperDto.fromJson(Map<String, dynamic> json) =
+      _$NftWrapperDtoImpl.fromJson;
+
+  @override
+  NftDto get nft;
+  @override
+  @JsonKey(ignore: true)
+  _$$NftWrapperDtoImplCopyWith<_$NftWrapperDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:glimmer_box/application/collections/collection_details_event.dart';
-import 'package:glimmer_box/application/collections/collection_details_state.dart';
+import 'package:glimmer_box/application/collections/events/collection_details_event.dart';
+import 'package:glimmer_box/application/collections/states/collection_details_state.dart';
 import 'package:glimmer_box/domain/collections/repositories/collection_repository.dart';
 import 'package:glimmer_box/domain/core/failures/open_sea_api_failure.dart';
 import 'package:logger/logger.dart';

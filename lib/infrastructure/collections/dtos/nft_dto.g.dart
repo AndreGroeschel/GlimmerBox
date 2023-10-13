@@ -15,10 +15,23 @@ _$NftDtoImpl _$$NftDtoImplFromJson(Map<String, dynamic> json) => _$NftDtoImpl(
       description: json['description'] as String? ?? '',
       imageUrl: json['image_url'] as String? ?? '',
       metadataUrl: json['metadataUrl'] as String? ?? '',
-      createdAt: json['createdAt'] as String? ?? '',
       updatedAt: json['updatedAt'] as String? ?? '',
       isDisabled: json['isDisabled'] as bool? ?? false,
       isNsfw: json['isNsfw'] as bool? ?? false,
+      animationUrl: json['animationUrl'] as String? ?? '',
+      isSuspicious: json['isSuspicious'] as bool? ?? false,
+      creator: json['creator'] as String? ?? '',
+      owners: (json['owners'] as List<dynamic>?)
+              ?.map((e) => OwnerDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      traits: (json['traits'] as List<dynamic>?)
+              ?.map((e) => TraitDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      rarity: json['rarity'] == null
+          ? null
+          : RarityDto.fromJson(json['rarity'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$NftDtoImplToJson(_$NftDtoImpl instance) =>
@@ -31,10 +44,15 @@ Map<String, dynamic> _$$NftDtoImplToJson(_$NftDtoImpl instance) =>
       'description': instance.description,
       'image_url': instance.imageUrl,
       'metadataUrl': instance.metadataUrl,
-      'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
       'isDisabled': instance.isDisabled,
       'isNsfw': instance.isNsfw,
+      'animationUrl': instance.animationUrl,
+      'isSuspicious': instance.isSuspicious,
+      'creator': instance.creator,
+      'owners': instance.owners,
+      'traits': instance.traits,
+      'rarity': instance.rarity,
     };
 
 _$NftsResponseDtoImpl _$$NftsResponseDtoImplFromJson(
@@ -52,4 +70,14 @@ Map<String, dynamic> _$$NftsResponseDtoImplToJson(
     <String, dynamic>{
       'nfts': instance.nfts,
       'next': instance.next,
+    };
+
+_$NftWrapperDtoImpl _$$NftWrapperDtoImplFromJson(Map<String, dynamic> json) =>
+    _$NftWrapperDtoImpl(
+      nft: NftDto.fromJson(json['nft'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$NftWrapperDtoImplToJson(_$NftWrapperDtoImpl instance) =>
+    <String, dynamic>{
+      'nft': instance.nft,
     };

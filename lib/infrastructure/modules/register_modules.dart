@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:glimmer_box/infrastructure/collections/endpoints/collections_endpoint.dart';
+import 'package:glimmer_box/infrastructure/collections/endpoints/nft_details_endpoint.dart';
 import 'package:glimmer_box/infrastructure/collections/endpoints/nfts_endpoint.dart';
 import 'package:glimmer_box/infrastructure/logger/dio_logging_interceptor.dart';
 import 'package:glimmer_box/infrastructure/logger/logger.dart';
@@ -31,4 +32,10 @@ abstract class RegisterModule {
     Dio dio,
   ) =>
       NftsEndpoint(dio);
+
+  @lazySingleton
+  NftDetailsEndpoint getNftDetailsEndpoint(
+    Dio dio,
+  ) =>
+      NftDetailsEndpoint(dio);
 }

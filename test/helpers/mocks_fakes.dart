@@ -1,10 +1,13 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:glimmer_box/application/collections/collection_details_event.dart';
-import 'package:glimmer_box/application/collections/collection_details_state.dart';
-import 'package:glimmer_box/application/collections/collection_event.dart';
-import 'package:glimmer_box/application/collections/collection_state.dart';
-import 'package:glimmer_box/application/collections/collections_bloc.dart';
-import 'package:glimmer_box/application/collections/collections_details_bloc.dart';
+import 'package:glimmer_box/application/collections/blocs/collections_bloc.dart';
+import 'package:glimmer_box/application/collections/blocs/collections_details_bloc.dart';
+import 'package:glimmer_box/application/collections/blocs/nft_details_bloc.dart';
+import 'package:glimmer_box/application/collections/events/collection_details_event.dart';
+import 'package:glimmer_box/application/collections/events/collection_event.dart';
+import 'package:glimmer_box/application/collections/events/nft_details_event.dart';
+import 'package:glimmer_box/application/collections/states/collection_details_state.dart';
+import 'package:glimmer_box/application/collections/states/collection_state.dart';
+import 'package:glimmer_box/application/collections/states/nft_details_state.dart';
 import 'package:glimmer_box/domain/collections/repositories/collection_repository.dart';
 import 'package:glimmer_box/presentation/collections/viewmodels/nft_view_model.dart';
 import 'package:go_router/go_router.dart';
@@ -25,6 +28,9 @@ class MockCollectionBloc extends MockBloc<CollectionEvent, CollectionState>
 class MockCollectionDetailsBloc
     extends MockBloc<CollectionDetailsEvent, CollectionDetailsState>
     implements CollectionDetailsBloc {}
+
+class MockNftDetailsBloc extends MockBloc<NftDetailsEvent, NftDetailsState>
+    implements NftDetailsBloc {}
 
 class MockGoRouter extends Mock implements GoRouter {}
 

@@ -2,6 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:glimmer_box/domain/collections/datasources/collection_remote_datasource.dart';
 import 'package:glimmer_box/domain/collections/entities/collection_page.dart';
+import 'package:glimmer_box/domain/collections/entities/nft_details.dart';
+import 'package:glimmer_box/domain/collections/entities/nft_page.dart';
 import 'package:glimmer_box/domain/core/failures/open_sea_api_failure.dart';
 import 'package:glimmer_box/infrastructure/collections/dtos/collection_dto.dart';
 import 'package:glimmer_box/infrastructure/collections/dtos/nft_dto.dart';
@@ -13,19 +15,16 @@ class MockCollectionRemoteDataSource extends Mock
     implements CollectionRemoteDataSource {}
 
 void main() {
-  /// Variable declarations for dependencies and the class under test.
   late CollectionsRepositoryImpl repository;
   late MockCollectionRemoteDataSource mockCollectionRemoteDataSource;
 
   setUp(() {
-    /// Instantiate mock objects and the class under test.
     mockCollectionRemoteDataSource = MockCollectionRemoteDataSource();
     repository = CollectionsRepositoryImpl(
       collectionRemoteDataSource: mockCollectionRemoteDataSource,
     );
   });
 
-  /// Group tests by method name for better readability and maintenance.
   group('Get Collections', () {
     // Prepare test data
 
@@ -235,7 +234,154 @@ void main() {
         expect(
           result,
           equals(
-            const Left<OpenSeaApiFailure, Stream<CollectionPage>>(
+            const Left<OpenSeaApiFailure, Stream<NftPage>>(
+              OpenSeaApiFailure.unknown(),
+            ),
+          ),
+        );
+      },
+    );
+  });
+
+  group('Get NFT Details', () {
+    final mockNftDetailsJson = {
+      'nft': {
+        'identifier': '1',
+        'collection': 'deadmigos-official',
+        'contract': '0xd29f5f02f5ffcd102faf467f2f236c601830780d',
+        'token_standard': 'erc721',
+        'name': 'Deadmigos #1',
+        'description': 'Dreamed of moonshots but awoke to a capitulation. 🌑',
+        'image_url':
+            'https://ipfs.io/ipfs/bafybeiexo7c767mzz7k2oovxzdcem25zfn2gxvxpkegszy2ngsm3zb6ib4/1.png',
+        'metadata_url':
+            'ipfs://bafybeiczl3yhsy7ob5vgewfsb4nqhdqxwofw5oe5hd2aw6vo4acblbtyqm/1.json',
+        'created_at': ' ',
+        'updated_at': '2023-09-28T00:11:24.828700',
+        'is_disabled': false,
+        'is_nsfw': false,
+        'animation_url': '',
+        'is_suspicious': false,
+        'creator': '0x0563e643132578f7d53e94556373b95c3c4f9b45',
+        'traits': [
+          {
+            'trait_type': 'Neck',
+            'display_type': null,
+            'max_value': null,
+            'trait_count': 0,
+            'order': null,
+            'value': 'Gold Chain',
+          },
+          {
+            'trait_type': 'Frankenstein',
+            'display_type': null,
+            'max_value': null,
+            'trait_count': 0,
+            'order': null,
+            'value': 'Frankenstein',
+          },
+          {
+            'trait_type': 'Clothes',
+            'display_type': null,
+            'max_value': null,
+            'trait_count': 0,
+            'order': null,
+            'value': 'WIzard',
+          },
+          {
+            'trait_type': 'Hat',
+            'display_type': null,
+            'max_value': null,
+            'trait_count': 0,
+            'order': null,
+            'value': 'Halo',
+          },
+          {
+            'trait_type': 'Accessories',
+            'display_type': null,
+            'max_value': null,
+            'trait_count': 0,
+            'order': null,
+            'value': 'Skull On A Stick',
+          }
+        ],
+        'owners': [
+          {
+            'address': '0x0563e643132578f7d53e94556373b95c3c4f9b45',
+            'quantity': 1,
+          }
+        ],
+        'rarity': {
+          'strategy_id': null,
+          'strategy_version': null,
+          'rank': 2827,
+          'score': null,
+          'calculated_at': '',
+          'max_rank': null,
+          'tokens_scored': 0,
+          'ranking_features': null,
+        },
+      },
+    };
+
+    final mockNftDetailsResponseDto =
+        NftWrapperDto.fromJson(mockNftDetailsJson).nft;
+
+    final nftDetail = mockNftDetailsResponseDto.toNftDetails();
+
+    test(
+      'should return a Stream of NftDetails when getNftDetails is successful',
+      () async {
+        // Arrange
+        when(
+          () => mockCollectionRemoteDataSource.getNftDetails(
+            chain: any(named: 'chain'),
+            address: any(named: 'address'),
+            identifier: any(named: 'identifier'),
+          ),
+        ).thenAnswer((_) async => Right(mockNftDetailsResponseDto));
+
+        // Act
+        final result = await repository.getNftDetails(
+          chain: 'someChain',
+          address: 'someAddress',
+          identifier: 'someIdentifier',
+        );
+
+        // Assert
+        result.fold(
+          (l) => fail('NFTs not fetched successfully'),
+          (r) {
+            expectLater(r, emits(nftDetail));
+          },
+        );
+      },
+    );
+
+    test(
+      'should return OpenSeaApiFailure when getNftDetails is unsuccessful',
+      () async {
+        // Arrange
+        when(
+          () => mockCollectionRemoteDataSource.getNftDetails(
+            chain: any(named: 'chain'),
+            address: any(named: 'address'),
+            identifier: any(named: 'identifier'),
+          ),
+        ).thenAnswer((_) async => const Left(OpenSeaApiFailure.unknown()));
+
+        // Act
+        final result = await repository.getNftDetails(
+          chain: 'someChain',
+          address: 'someAddress',
+          identifier: 'identifier',
+        );
+
+        // Assert
+        expect(
+          result,
+          equals(
+            const Left<OpenSeaApiFailure, Stream<NftDetails>>(
               OpenSeaApiFailure.unknown(),
             ),
           ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:glimmer_box/application/collections/collection_details_state.dart';
-import 'package:glimmer_box/application/collections/collections_details_bloc.dart';
+import 'package:glimmer_box/application/collections/blocs/collections_details_bloc.dart';
+import 'package:glimmer_box/application/collections/states/collection_details_state.dart';
 import 'package:glimmer_box/presentation/collections/viewmodels/nft_view_model.dart';
 import 'package:glimmer_box/presentation/collections/widgets/collection_details_grid.dart';
 
@@ -39,6 +39,7 @@ class CollectionDetailsScreen extends StatelessWidget {
                   children: [
                     CollectionDetailsGrid(
                       nfts: nftViewModels,
+                      chainIdentifier: chain,
                     ),
                   ],
                 ),

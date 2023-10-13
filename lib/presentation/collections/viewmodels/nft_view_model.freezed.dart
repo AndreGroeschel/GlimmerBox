@@ -19,6 +19,8 @@ mixin _$NftViewModel {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
+  String get contract => throw _privateConstructorUsedError;
+  String get identifier => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NftViewModelCopyWith<NftViewModel> get copyWith =>
@@ -31,7 +33,12 @@ abstract class $NftViewModelCopyWith<$Res> {
           NftViewModel value, $Res Function(NftViewModel) then) =
       _$NftViewModelCopyWithImpl<$Res, NftViewModel>;
   @useResult
-  $Res call({String name, String description, String imageUrl});
+  $Res call(
+      {String name,
+      String description,
+      String imageUrl,
+      String contract,
+      String identifier});
 }
 
 /// @nodoc
@@ -50,6 +57,8 @@ class _$NftViewModelCopyWithImpl<$Res, $Val extends NftViewModel>
     Object? name = null,
     Object? description = null,
     Object? imageUrl = null,
+    Object? contract = null,
+    Object? identifier = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -64,6 +73,14 @@ class _$NftViewModelCopyWithImpl<$Res, $Val extends NftViewModel>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      contract: null == contract
+          ? _value.contract
+          : contract // ignore: cast_nullable_to_non_nullable
+              as String,
+      identifier: null == identifier
+          ? _value.identifier
+          : identifier // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -76,7 +93,12 @@ abstract class _$$NftViewModelImplCopyWith<$Res>
       __$$NftViewModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String description, String imageUrl});
+  $Res call(
+      {String name,
+      String description,
+      String imageUrl,
+      String contract,
+      String identifier});
 }
 
 /// @nodoc
@@ -93,6 +115,8 @@ class __$$NftViewModelImplCopyWithImpl<$Res>
     Object? name = null,
     Object? description = null,
     Object? imageUrl = null,
+    Object? contract = null,
+    Object? identifier = null,
   }) {
     return _then(_$NftViewModelImpl(
       name: null == name
@@ -107,6 +131,14 @@ class __$$NftViewModelImplCopyWithImpl<$Res>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      contract: null == contract
+          ? _value.contract
+          : contract // ignore: cast_nullable_to_non_nullable
+              as String,
+      identifier: null == identifier
+          ? _value.identifier
+          : identifier // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -115,7 +147,11 @@ class __$$NftViewModelImplCopyWithImpl<$Res>
 
 class _$NftViewModelImpl extends _NftViewModel {
   const _$NftViewModelImpl(
-      {this.name = '', this.description = '', this.imageUrl = ''})
+      {this.name = '',
+      this.description = '',
+      this.imageUrl = '',
+      this.contract = '',
+      this.identifier = ''})
       : super._();
 
   @override
@@ -127,10 +163,16 @@ class _$NftViewModelImpl extends _NftViewModel {
   @override
   @JsonKey()
   final String imageUrl;
+  @override
+  @JsonKey()
+  final String contract;
+  @override
+  @JsonKey()
+  final String identifier;
 
   @override
   String toString() {
-    return 'NftViewModel(name: $name, description: $description, imageUrl: $imageUrl)';
+    return 'NftViewModel(name: $name, description: $description, imageUrl: $imageUrl, contract: $contract, identifier: $identifier)';
   }
 
   @override
@@ -142,11 +184,16 @@ class _$NftViewModelImpl extends _NftViewModel {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl));
+                other.imageUrl == imageUrl) &&
+            (identical(other.contract, contract) ||
+                other.contract == contract) &&
+            (identical(other.identifier, identifier) ||
+                other.identifier == identifier));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, description, imageUrl);
+  int get hashCode => Object.hash(
+      runtimeType, name, description, imageUrl, contract, identifier);
 
   @JsonKey(ignore: true)
   @override
@@ -159,7 +206,9 @@ abstract class _NftViewModel extends NftViewModel {
   const factory _NftViewModel(
       {final String name,
       final String description,
-      final String imageUrl}) = _$NftViewModelImpl;
+      final String imageUrl,
+      final String contract,
+      final String identifier}) = _$NftViewModelImpl;
   const _NftViewModel._() : super._();
 
   @override
@@ -168,6 +217,10 @@ abstract class _NftViewModel extends NftViewModel {
   String get description;
   @override
   String get imageUrl;
+  @override
+  String get contract;
+  @override
+  String get identifier;
   @override
   @JsonKey(ignore: true)
   _$$NftViewModelImplCopyWith<_$NftViewModelImpl> get copyWith =>

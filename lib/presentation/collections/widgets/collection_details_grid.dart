@@ -6,9 +6,14 @@ import 'package:glimmer_box/presentation/routes.dart';
 
 /// A grid to display NFTs of a collection
 class CollectionDetailsGrid extends StatelessWidget {
-  const CollectionDetailsGrid({required this.nfts, super.key});
+  const CollectionDetailsGrid({
+    required this.nfts,
+    required this.chainIdentifier,
+    super.key,
+  });
 
   final List<NftViewModel> nfts;
+  final String chainIdentifier;
   @override
   Widget build(BuildContext context) {
     return MasonryGridView.count(
@@ -19,10 +24,11 @@ class CollectionDetailsGrid extends StatelessWidget {
       itemCount: nfts.length,
       itemBuilder: (context, index) {
         return GestureDetector(
-          onTap: () => CollectionDetailsRoute(
+          onTap: () => NftDetailsRoute(
             name: nfts[index].name,
-            chain: 'chain',
-            address: 'address',
+            chain: chainIdentifier,
+            address: nfts[index].contract,
+            identifier: nfts[index].identifier,
           ).go(context),
           // Assuming CollectionViewModel has an id property.
           child: NftTile(

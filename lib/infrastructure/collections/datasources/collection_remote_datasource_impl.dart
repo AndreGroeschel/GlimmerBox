@@ -5,6 +5,7 @@ import 'package:glimmer_box/domain/core/failures/open_sea_api_failure.dart';
 import 'package:glimmer_box/infrastructure/collections/dtos/collection_dto.dart';
 import 'package:glimmer_box/infrastructure/collections/dtos/nft_dto.dart';
 import 'package:glimmer_box/infrastructure/collections/endpoints/collections_endpoint.dart';
+import 'package:glimmer_box/infrastructure/collections/endpoints/nft_details_endpoint.dart';
 import 'package:glimmer_box/infrastructure/collections/endpoints/nfts_endpoint.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
@@ -14,11 +15,13 @@ class CollectionRemoteDataSourceImpl implements CollectionRemoteDataSource {
   CollectionRemoteDataSourceImpl(
     this._collectionsEndpoint,
     this._nftsEndpoint,
+    this._nftDetailsEndpoint,
     this._logger,
   );
 
   final CollectionsEndpoint _collectionsEndpoint;
   final NftsEndpoint _nftsEndpoint;
+  final NftDetailsEndpoint _nftDetailsEndpoint;
   final Logger _logger;
 
   @override
@@ -89,6 +92,53 @@ class CollectionRemoteDataSourceImpl implements CollectionRemoteDataSource {
       );
       _logger.i(response);
       return Right<OpenSeaApiFailure, NftsResponseDto>(response);
+    } catch (exception) {
+      if (exception.runtimeType == DioException) {
+        switch ((exception as DioException).type) {
+          case DioExceptionType.connectionTimeout:
+            return const Left(OpenSeaApiFailure.connectionTimeout());
+          case DioExceptionType.sendTimeout:
+            return const Left(OpenSeaApiFailure.sendTimeout());
+          case DioExceptionType.receiveTimeout:
+            return const Left(OpenSeaApiFailure.receiveTimeout());
+          case DioExceptionType.badCertificate:
+            return const Left(OpenSeaApiFailure.badCertificate());
+          case DioExceptionType.badResponse:
+            return Left(
+              OpenSeaApiFailure.badResponse(
+                message: exception.response?.statusMessage ?? 'Unknown',
+              ),
+            );
+          case DioExceptionType.cancel:
+            return const Left(OpenSeaApiFailure.cancel());
+          case DioExceptionType.connectionError:
+            return const Left(OpenSeaApiFailure.connectionError());
+          case DioExceptionType.unknown:
+            return const Left(OpenSeaApiFailure.unknown());
+        }
+      }
+      return const Left(OpenSeaApiFailure.unknown());
+    }
+  }
+
+  @override
+  Future<Either<OpenSeaApiFailure, NftDto>> getNftDetails({
+    required String chain,
+    required String address,
+    required String identifier,
+  }) async {
+    try {
+      final response = await _nftDetailsEndpoint.getNft(
+        apiKey: const String.fromEnvironment(
+          'OPENSEA_API_KEY',
+          defaultValue: 'default key',
+        ),
+        chainIdentifier: chain,
+        address: address,
+        identifier: identifier,
+      );
+      _logger.i(response);
+      return Right<OpenSeaApiFailure, NftDto>(response.nft);
     } catch (exception) {
       if (exception.runtimeType == DioException) {
         switch ((exception as DioException).type) {

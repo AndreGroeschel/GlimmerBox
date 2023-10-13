@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:glimmer_box/application/collections/blocs/collections_details_bloc.dart';
-import 'package:glimmer_box/application/collections/states/collection_details_state.dart';
-import 'package:glimmer_box/domain/collections/entities/nft.dart';
-import 'package:glimmer_box/domain/collections/entities/nft_page.dart';
-import 'package:glimmer_box/presentation/collections/screens/collection_details_screen.dart';
-import 'package:glimmer_box/presentation/collections/widgets/collection_details_grid.dart';
+import 'package:glimmer_box/application/collections/blocs/nft_details_bloc.dart';
+import 'package:glimmer_box/application/collections/states/nft_details_state.dart';
+import 'package:glimmer_box/domain/collections/entities/nft_details.dart';
+import 'package:glimmer_box/presentation/collections/screens/nft_details_screen.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:octo_image/octo_image.dart';
 
 import '../../../helpers/mocks_fakes.dart';
 
@@ -18,26 +17,27 @@ void main() {
     registerFallbackValue(FakeCollectionState());
   });
 
-  group('CollectionDetailsPage', () {
-    late MockCollectionDetailsBloc mockCollectionDetailBloc;
+  group('NftDetailsPage', () {
+    late MockNftDetailsBloc mockNftDetailBloc;
 
     setUp(() {
-      mockCollectionDetailBloc = MockCollectionDetailsBloc();
+      mockNftDetailBloc = MockNftDetailsBloc();
     });
 
     testWidgets('Renders correctly in initial state',
         (WidgetTester tester) async {
-      when(() => mockCollectionDetailBloc.state)
-          .thenReturn(const CollectionDetailsState.initial());
+      when(() => mockNftDetailBloc.state)
+          .thenReturn(const NftDetailsState.initial());
 
       await tester.pumpWidget(
-        BlocProvider<CollectionDetailsBloc>(
-          create: (_) => mockCollectionDetailBloc,
+        BlocProvider<NftDetailsBloc>(
+          create: (_) => mockNftDetailBloc,
           child: const MaterialApp(
-            home: CollectionDetailsScreen(
+            home: NftDetailsScreen(
               name: 'Details',
               chain: 'chain',
               address: 'address',
+              identifier: 'identifier',
             ),
           ),
         ),
@@ -48,43 +48,45 @@ void main() {
 
     testWidgets('Renders correctly in loaded state with no nfts',
         (WidgetTester tester) async {
-      when(() => mockCollectionDetailBloc.state).thenReturn(
-        const CollectionDetailsState.loaded(
-          NftPage(next: 'someCursor'),
+      when(() => mockNftDetailBloc.state).thenReturn(
+        const NftDetailsState.loaded(
+          NftDetails(),
         ),
       );
 
       await tester.pumpWidget(
-        BlocProvider<CollectionDetailsBloc>(
-          create: (_) => mockCollectionDetailBloc,
+        BlocProvider<NftDetailsBloc>(
+          create: (_) => mockNftDetailBloc,
           child: const MaterialApp(
-            home: CollectionDetailsScreen(
+            home: NftDetailsScreen(
               name: 'Details',
               chain: 'chain',
               address: 'address',
+              identifier: 'identifier',
             ),
           ),
         ),
       );
 
-      expect(find.byType(CollectionDetailsGrid), findsOneWidget);
+      expect(find.byType(SafeArea), findsOneWidget);
     });
 
     testWidgets(
         'Shows loading indicator when CollectionDetailsBloc '
         'emits loading state', (WidgetTester tester) async {
-      when(() => mockCollectionDetailBloc.state).thenReturn(
-        const CollectionDetailsState.loading(),
+      when(() => mockNftDetailBloc.state).thenReturn(
+        const NftDetailsState.loading(),
       );
 
       await tester.pumpWidget(
-        BlocProvider<CollectionDetailsBloc>.value(
-          value: mockCollectionDetailBloc,
+        BlocProvider<NftDetailsBloc>(
+          create: (_) => mockNftDetailBloc,
           child: const MaterialApp(
-            home: CollectionDetailsScreen(
+            home: NftDetailsScreen(
               name: 'Details',
               chain: 'chain',
               address: 'address',
+              identifier: 'identifier',
             ),
           ),
         ),
@@ -98,18 +100,19 @@ void main() {
         (WidgetTester tester) async {
       const errorMessage = 'Network Error';
 
-      when(() => mockCollectionDetailBloc.state).thenReturn(
-        const CollectionDetailsState.error(errorMessage),
+      when(() => mockNftDetailBloc.state).thenReturn(
+        const NftDetailsState.error(errorMessage),
       );
 
       await tester.pumpWidget(
-        BlocProvider<CollectionDetailsBloc>.value(
-          value: mockCollectionDetailBloc,
+        BlocProvider<NftDetailsBloc>(
+          create: (_) => mockNftDetailBloc,
           child: const MaterialApp(
-            home: CollectionDetailsScreen(
+            home: NftDetailsScreen(
               name: 'Details',
               chain: 'chain',
               address: 'address',
+              identifier: 'identifier',
             ),
           ),
         ),
@@ -118,42 +121,35 @@ void main() {
       expect(find.text('Error: $errorMessage'), findsOneWidget);
     });
 
-    testWidgets('Renders correctly in loaded state with nfts',
+    testWidgets('Renders correctly in loaded state with nft',
         (WidgetTester tester) async {
-      const nft1 = Nft(
+      const nftDetail = NftDetails(
         name: 'test1',
         description: 'description1',
         imageUrl: 'path1',
       );
-      const nft2 = Nft(
-        name: 'test2',
-        description: 'description2',
-        imageUrl: 'path2',
-      );
 
-      when(() => mockCollectionDetailBloc.state).thenReturn(
-        const CollectionDetailsState.loaded(
-          NftPage(
-            nfts: [nft1, nft2],
-            next: 'someCursor',
-          ),
+      when(() => mockNftDetailBloc.state).thenReturn(
+        const NftDetailsState.loaded(
+          nftDetail,
         ),
       );
 
       await tester.pumpWidget(
-        BlocProvider<CollectionDetailsBloc>(
-          create: (_) => mockCollectionDetailBloc,
+        BlocProvider<NftDetailsBloc>(
+          create: (_) => mockNftDetailBloc,
           child: const MaterialApp(
-            home: CollectionDetailsScreen(
+            home: NftDetailsScreen(
               name: 'Details',
               chain: 'chain',
               address: 'address',
+              identifier: 'identifier',
             ),
           ),
         ),
       );
 
-      expect(find.byType(CollectionDetailsGrid), findsOneWidget);
+      expect(find.byType(OctoImage), findsOneWidget);
     });
   });
 }
