@@ -26,6 +26,7 @@ void main() {
       MaterialApp(
         home: CollectionDetailsGrid(
           nfts: [mockViewModel],
+          chainIdentifier: 'chain',
         ),
       ),
     );
@@ -47,6 +48,7 @@ void main() {
                 imageUrl: 'nftUrl',
               ),
             ],
+            chainIdentifier: 'chain',
           ),
         ),
       ),

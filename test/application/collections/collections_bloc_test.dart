@@ -1,9 +1,9 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:glimmer_box/application/collections/collection_event.dart';
-import 'package:glimmer_box/application/collections/collection_state.dart';
-import 'package:glimmer_box/application/collections/collections_bloc.dart';
+import 'package:glimmer_box/application/collections/blocs/collections_bloc.dart';
+import 'package:glimmer_box/application/collections/events/collection_event.dart';
+import 'package:glimmer_box/application/collections/states/collection_state.dart';
 import 'package:glimmer_box/domain/collections/entities/collection.dart';
 import 'package:glimmer_box/domain/collections/entities/collection_page.dart';
 import 'package:glimmer_box/domain/core/failures/open_sea_api_failure.dart';

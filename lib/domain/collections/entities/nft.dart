@@ -10,5 +10,6 @@ class Nft with _$Nft {
     @Default('') String name,
     @Default('') String description,
     @Default('') String imageUrl,
+    @Default('') String contract,
   }) = _Nft;
 }

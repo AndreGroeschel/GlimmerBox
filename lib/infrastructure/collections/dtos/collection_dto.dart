@@ -2,7 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:glimmer_box/domain/collections/entities/collection.dart';
 import 'package:glimmer_box/domain/collections/entities/collection_page.dart';
 import 'package:glimmer_box/domain/collections/entities/contract.dart';
-import 'package:glimmer_box/infrastructure/logger/logger.dart';
 
 part 'collection_dto.freezed.dart';
 part 'collection_dto.g.dart';
@@ -25,7 +24,6 @@ class CollectionsResponseDto with _$CollectionsResponseDto {
   const CollectionsResponseDto._();
 
   CollectionPage toCollectionPage() {
-    appLogger.i('Next cursor is $next');
     return CollectionPage(
       collections: collections.map((dto) => dto.toCollection()).toList(),
       next: next,

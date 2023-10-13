@@ -6,6 +6,7 @@ import 'package:glimmer_box/infrastructure/collections/datasources/collection_re
 import 'package:glimmer_box/infrastructure/collections/dtos/collection_dto.dart';
 import 'package:glimmer_box/infrastructure/collections/dtos/nft_dto.dart';
 import 'package:glimmer_box/infrastructure/collections/endpoints/collections_endpoint.dart';
+import 'package:glimmer_box/infrastructure/collections/endpoints/nft_details_endpoint.dart';
 import 'package:glimmer_box/infrastructure/collections/endpoints/nfts_endpoint.dart';
 import 'package:glimmer_box/infrastructure/logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
@@ -14,18 +15,23 @@ class MockCollectionsEndpoint extends Mock implements CollectionsEndpoint {}
 
 class MockNftsEndpoint extends Mock implements NftsEndpoint {}
 
+class MockNftDetailsEndpoint extends Mock implements NftDetailsEndpoint {}
+
 void main() {
   late CollectionRemoteDataSourceImpl dataSource;
   late MockCollectionsEndpoint collectionsEndpoint;
   late MockNftsEndpoint nftsEndpoint;
+  late MockNftDetailsEndpoint nftDetailsEndpoint;
 
   setUp(() {
     collectionsEndpoint = MockCollectionsEndpoint();
     nftsEndpoint = MockNftsEndpoint();
+    nftDetailsEndpoint = MockNftDetailsEndpoint();
 
     dataSource = CollectionRemoteDataSourceImpl(
       collectionsEndpoint,
       nftsEndpoint,
+      nftDetailsEndpoint,
       appLogger,
     );
   });
@@ -385,6 +391,249 @@ void main() {
           result,
           equals(
             Left<OpenSeaApiFailure, NftsResponseDto>(
+              expectedFailure,
+            ),
+          ),
+        );
+      });
+    }
+
+    runExceptionTest(
+      DioExceptionType.connectionTimeout,
+      const OpenSeaApiFailure.connectionTimeout(),
+    );
+    runExceptionTest(
+      DioExceptionType.sendTimeout,
+      const OpenSeaApiFailure.sendTimeout(),
+    );
+    runExceptionTest(
+      DioExceptionType.receiveTimeout,
+      const OpenSeaApiFailure.receiveTimeout(),
+    );
+    runExceptionTest(
+      DioExceptionType.badCertificate,
+      const OpenSeaApiFailure.badCertificate(),
+    );
+    runExceptionTest(
+      DioExceptionType.badResponse,
+      const OpenSeaApiFailure.badResponse(message: 'Unknown'),
+    );
+    runExceptionTest(DioExceptionType.cancel, const OpenSeaApiFailure.cancel());
+    runExceptionTest(
+      DioExceptionType.connectionError,
+      const OpenSeaApiFailure.connectionError(),
+    );
+    runExceptionTest(
+      DioExceptionType.unknown,
+      const OpenSeaApiFailure.unknown(),
+    );
+
+    test(
+        'should return Left with OpenSeaApiFailure.unknown() when any'
+        ' other exception occurs', () async {
+      // Arrange
+      when(
+        () => nftsEndpoint.getNfts(
+          apiKey: any(named: 'apiKey'),
+          chainIdentifier: any(named: 'chainIdentifier'),
+          address: any(named: 'address'),
+          limit: any(named: 'limit'),
+          next: any(named: 'next'),
+        ),
+      ).thenThrow(Exception());
+
+      // Act
+      final result = await dataSource.getCollections(chain: 'anyChain');
+
+      // Assert
+      expect(
+        result,
+        equals(
+          const Left<OpenSeaApiFailure, CollectionsResponseDto>(
+            OpenSeaApiFailure.unknown(),
+          ),
+        ),
+      );
+    });
+  });
+
+  group('Get NFT Details', () {
+    final mockNftDetailsJson = {
+      'nft': {
+        'identifier': '1',
+        'collection': 'deadmigos-official',
+        'contract': '0xd29f5f02f5ffcd102faf467f2f236c601830780d',
+        'token_standard': 'erc721',
+        'name': 'Deadmigos #1',
+        'description': 'Dreamed of moonshots but awoke to a capitulation. 🌑',
+        'image_url':
+            'https://ipfs.io/ipfs/bafybeiexo7c767mzz7k2oovxzdcem25zfn2gxvxpkegszy2ngsm3zb6ib4/1.png',
+        'metadata_url':
+            'ipfs://bafybeiczl3yhsy7ob5vgewfsb4nqhdqxwofw5oe5hd2aw6vo4acblbtyqm/1.json',
+        'created_at': ' ',
+        'updated_at': '2023-09-28T00:11:24.828700',
+        'is_disabled': false,
+        'is_nsfw': false,
+        'animation_url': '',
+        'is_suspicious': false,
+        'creator': '0x0563e643132578f7d53e94556373b95c3c4f9b45',
+        'traits': [
+          {
+            'trait_type': 'Neck',
+            'display_type': null,
+            'max_value': null,
+            'trait_count': 0,
+            'order': null,
+            'value': 'Gold Chain',
+          },
+          {
+            'trait_type': 'Frankenstein',
+            'display_type': null,
+            'max_value': null,
+            'trait_count': 0,
+            'order': null,
+            'value': 'Frankenstein',
+          },
+          {
+            'trait_type': 'Clothes',
+            'display_type': null,
+            'max_value': null,
+            'trait_count': 0,
+            'order': null,
+            'value': 'WIzard',
+          },
+          {
+            'trait_type': 'Hat',
+            'display_type': null,
+            'max_value': null,
+            'trait_count': 0,
+            'order': null,
+            'value': 'Halo',
+          },
+          {
+            'trait_type': 'Accessories',
+            'display_type': null,
+            'max_value': null,
+            'trait_count': 0,
+            'order': null,
+            'value': 'Skull On A Stick',
+          }
+        ],
+        'owners': [
+          {
+            'address': '0x0563e643132578f7d53e94556373b95c3c4f9b45',
+            'quantity': 1,
+          }
+        ],
+        'rarity': {
+          'strategy_id': null,
+          'strategy_version': null,
+          'rank': 2827,
+          'score': null,
+          'calculated_at': '',
+          'max_rank': null,
+          'tokens_scored': 0,
+          'ranking_features': null,
+        },
+      },
+    };
+
+    final mockNftDetailsResponseDto =
+        NftWrapperDto.fromJson(mockNftDetailsJson);
+
+    test('should return NFTs when everything works', () async {
+      // Arrange
+      when(
+        () => nftDetailsEndpoint.getNft(
+          apiKey: any(named: 'apiKey'),
+          chainIdentifier: any(named: 'chainIdentifier'),
+          address: any(named: 'address'),
+          identifier: any(named: 'identifier'),
+        ),
+      ).thenAnswer((_) async => mockNftDetailsResponseDto);
+
+      // Act
+      final result = await dataSource.getNftDetails(
+        chain: 'someChain',
+        address: 'someAddress',
+        identifier: 'someIdentifier',
+      );
+
+      // Assert
+      result.fold(
+        (l) => fail('NFTs not fetched successfully'),
+        (r) => expect(r, equals(mockNftDetailsResponseDto.nft)),
+      );
+    });
+
+    test('should call NFT details endpoint', () async {
+      // Arrange
+      const chain = 'someChain';
+      const address = 'someAddress';
+      const identifier = 'someIdentifier';
+
+      when(
+        () => nftDetailsEndpoint.getNft(
+          apiKey: any(named: 'apiKey'),
+          chainIdentifier: any(named: 'chainIdentifier'),
+          address: any(named: 'address'),
+          identifier: any(named: 'identifier'),
+        ),
+      ).thenAnswer((_) async => mockNftDetailsResponseDto);
+
+      // Act
+      await dataSource.getNftDetails(
+        chain: chain,
+        address: address,
+        identifier: identifier,
+      );
+
+      // Assert
+      verify(
+        () => nftDetailsEndpoint.getNft(
+          apiKey: any(named: 'apiKey'),
+          chainIdentifier: any(named: 'chainIdentifier'),
+          address: any(named: 'address'),
+          identifier: any(named: 'identifier'),
+        ),
+      ).called(1);
+    });
+
+    // Test cases for each failure type
+    void runExceptionTest(
+      DioExceptionType type,
+      OpenSeaApiFailure expectedFailure,
+    ) {
+      test(
+          'should return Left with $expectedFailure when DioException'
+          ' occurs with type $type', () async {
+        // Arrange
+        when(
+          () => nftDetailsEndpoint.getNft(
+            apiKey: any(named: 'apiKey'),
+            chainIdentifier: any(named: 'chainIdentifier'),
+            address: any(named: 'address'),
+            identifier: any(named: 'identifier'),
+          ),
+        ).thenThrow(
+          DioException(
+            type: type,
+            requestOptions: RequestOptions(),
+          ),
+        );
+
+        // Act
+        final result = await dataSource.getNftDetails(
+          chain: 'anyChain',
+          address: 'anyAddress',
+          identifier: 'anyIdentifier',
+        );
+
+        // Assert
+        expect(
+          result,
+          equals(
+            Left<OpenSeaApiFailure, NftDto>(
               expectedFailure,
             ),
           ),

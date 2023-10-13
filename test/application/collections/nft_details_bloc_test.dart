@@ -1,11 +1,10 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:glimmer_box/application/collections/blocs/collections_details_bloc.dart';
-import 'package:glimmer_box/application/collections/events/collection_details_event.dart';
-import 'package:glimmer_box/application/collections/states/collection_details_state.dart';
-import 'package:glimmer_box/domain/collections/entities/nft.dart';
-import 'package:glimmer_box/domain/collections/entities/nft_page.dart';
+import 'package:glimmer_box/application/collections/blocs/nft_details_bloc.dart';
+import 'package:glimmer_box/application/collections/events/nft_details_event.dart';
+import 'package:glimmer_box/application/collections/states/nft_details_state.dart';
+import 'package:glimmer_box/domain/collections/entities/nft_details.dart';
 import 'package:glimmer_box/domain/core/failures/open_sea_api_failure.dart';
 import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
@@ -19,12 +18,12 @@ class MockLogger extends Mock implements Logger {}
 void main() {
   late MockCollectionRepository collectionRepository;
   late Logger logger;
-  late CollectionDetailsBloc bloc;
+  late NftDetailsBloc bloc;
 
   setUp(() {
     collectionRepository = MockCollectionRepository();
     logger = MockLogger();
-    bloc = CollectionDetailsBloc(
+    bloc = NftDetailsBloc(
       collectionRepository: collectionRepository,
       logger: logger,
     );
@@ -35,54 +34,50 @@ void main() {
   });
 
   // Test case: initial state is correct
-  test('Initial state should be CollectionDetailsState.initial()', () {
-    expect(bloc.state, equals(const CollectionDetailsState.initial()));
+  test('Initial state should be NftDetailsState.initial()', () {
+    expect(bloc.state, equals(const NftDetailsState.initial()));
   });
 
   // Test group for LoadCollectionDetails event
   group('LoadCollectionDetails', () {
-    const nft1 = Nft(name: 'nft1');
-    const nft2 = Nft(name: 'nft2');
-    const mockNftPage = NftPage(
-      nfts: [nft1, nft2],
-      next: 'next_cursor_value',
-    );
-    // Mock a Stream of CollectionPage
-    final mockStream = Stream.value(mockNftPage);
+    const mockNftDetails = NftDetails(name: 'nft1');
 
-    // Test case: emits [loading, loaded] when successful
-    blocTest<CollectionDetailsBloc, CollectionDetailsState>(
-      'emits [loaded] when LoadCollectionDetails is successful',
+    // Mock a Stream of CollectionPage
+    final mockStream = Stream.value(mockNftDetails);
+
+    // Test case: emits [loaded] when successful
+    blocTest<NftDetailsBloc, NftDetailsState>(
+      'emits [loaded] when LoadNftDetails is successful',
       build: () => bloc,
       act: (bloc) {
         when(
-          () => collectionRepository.getNftPage(
+          () => collectionRepository.getNftDetails(
             chain: any(named: 'chain'),
-            limit: any(named: 'limit'),
+            identifier: any(named: 'identifier'),
             address: any(named: 'address'),
           ),
         ).thenAnswer((_) async => Right(mockStream));
 
         bloc.add(
-          const LoadCollectionDetails(
+          const LoadNftDetailsEvent(
             chainIdentifier: 'someChain',
-            limit: 10,
             address: 'address',
+            identifier: 'identifier',
           ),
         );
       },
       expect: () => [
-        const CollectionDetailsState.loaded(mockNftPage),
+        const NftDetailsState.loaded(mockNftDetails),
       ],
     );
 
-    blocTest<CollectionDetailsBloc, CollectionDetailsState>(
+    blocTest<NftDetailsBloc, NftDetailsState>(
       'emits [error] when there is a failure',
       build: () {
         when(
-          () => collectionRepository.getNftPage(
+          () => collectionRepository.getNftDetails(
             chain: any(named: 'chain'),
-            limit: any(named: 'limit'),
+            identifier: 'identifier',
             address: any(named: 'address'),
           ),
         ).thenAnswer(
@@ -91,14 +86,14 @@ void main() {
         return bloc;
       },
       act: (bloc) => bloc.add(
-        const LoadCollectionDetails(
+        const LoadNftDetailsEvent(
           chainIdentifier: 'someChain',
-          limit: 10,
           address: 'address',
+          identifier: 'identifier',
         ),
       ),
       expect: () => [
-        CollectionDetailsState.error(
+        NftDetailsState.error(
           const OpenSeaApiFailure.invalidApiKey().toString(),
         ),
       ],

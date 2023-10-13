@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:glimmer_box/domain/collections/entities/collection_page.dart';
+import 'package:glimmer_box/domain/collections/entities/nft_details.dart';
 import 'package:glimmer_box/domain/collections/entities/nft_page.dart';
 import 'package:glimmer_box/domain/core/failures/open_sea_api_failure.dart';
 
@@ -37,10 +38,8 @@ abstract class CollectionRepository {
     String next = '',
   });
 
-  /// Fetches a paginated list of NFTs
-  ///
-  /// This function returns a stream of `List<NftPage>`, allowing for real-time
-  /// updates to the UI as the data set changes.
+  /// Fetches a paginated list of OpenSea NFTs as a stream enabling
+  /// real-time updates to be reflected in the UI as data arrives or changes.
   ///
   /// - Parameters:
   ///   - [chain]: The blockchain network to filter the NFTs. For example, you
@@ -55,8 +54,7 @@ abstract class CollectionRepository {
   ///   - [next]: Optional cursor for the next set of results, useful for
   ///     pagination. Provided by a preceding query's API response.
   ///
-  /// - Returns: A stream of `List<NftPage>`, a custom data structure with NFTs
-  ///   and related metadata like pagination cursors.
+  /// - Returns: A stream of [NftPage]
   ///
   /// - Example:
   /// ```dart
@@ -72,5 +70,34 @@ abstract class CollectionRepository {
     required String address,
     int limit = 50,
     String next = '',
+  });
+
+  /// Fetches a NFT details as a stream enabling
+  /// real-time updates to be reflected in the UI as data arrives or changes.
+  ///
+  /// - Parameters:
+  ///   - [chain]: The blockchain network to filter the NFTs. For example, you
+  ///     might specify "ethereum" for NFTs on the Ethereum network.
+  ///
+  ///   - [address]: The unique public blockchain identifier for the smart
+  ///     contract or wallet. Typically the contract's address.
+  ///
+  ///   - [identifier]: The NFT token id.
+  ///
+  /// - Returns: A stream of [NftDetails]
+  ///
+  /// - Example:
+  /// ```dart
+  /// final nftStream = getNftDetails(
+  ///   chain: "ethereum",
+  ///   address: "0x1234",
+  ///   identifier: 1,
+  /// );
+  /// ```
+  ///
+  Future<Either<OpenSeaApiFailure, Stream<NftDetails>>> getNftDetails({
+    required String chain,
+    required String address,
+    required String identifier,
   });
 }

@@ -2,16 +2,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:glimmer_box/application/collections/collection_details_event.dart';
-import 'package:glimmer_box/application/collections/collection_event.dart';
-import 'package:glimmer_box/application/collections/collections_bloc.dart';
-import 'package:glimmer_box/application/collections/collections_details_bloc.dart';
+import 'package:glimmer_box/application/collections/blocs/collections_bloc.dart';
+import 'package:glimmer_box/application/collections/blocs/collections_details_bloc.dart';
+import 'package:glimmer_box/application/collections/blocs/nft_details_bloc.dart';
+import 'package:glimmer_box/application/collections/events/collection_details_event.dart';
+import 'package:glimmer_box/application/collections/events/collection_event.dart';
+import 'package:glimmer_box/application/collections/events/nft_details_event.dart';
 import 'package:glimmer_box/application/constants.dart';
 import 'package:glimmer_box/domain/collections/repositories/collection_repository.dart';
 import 'package:glimmer_box/infrastructure/logger/logger.dart';
 import 'package:glimmer_box/injection_container.dart';
 import 'package:glimmer_box/presentation/collections/screens/collection_details_screen.dart';
 import 'package:glimmer_box/presentation/collections/screens/collections_overview_screen.dart';
+import 'package:glimmer_box/presentation/collections/screens/nft_details_screen.dart';
 import 'package:go_router/go_router.dart';
 
 part 'routes.g.dart';
@@ -26,6 +29,9 @@ final GoRouter appRouter = GoRouter(
   routes: <TypedGoRoute<GoRouteData>>[
     TypedGoRoute<CollectionDetailsRoute>(
       path: 'nfts/:chain/:name/:address',
+    ),
+    TypedGoRoute<NftDetailsRoute>(
+      path: 'nfts/:chain/:name/:address/:identifier',
     ),
   ],
 )
@@ -78,6 +84,44 @@ class CollectionDetailsRoute extends GoRouteData {
           ),
         child:
             CollectionDetailsScreen(name: name, chain: chain, address: address),
+      ),
+    );
+  }
+}
+
+class NftDetailsRoute extends GoRouteData {
+  const NftDetailsRoute({
+    required this.name,
+    required this.chain,
+    required this.identifier,
+    required this.address,
+  });
+
+  final String name;
+  final String chain;
+  final String identifier;
+  final String address;
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return MaterialPage(
+      child: BlocProvider<NftDetailsBloc>(
+        create: (context) => NftDetailsBloc(
+          collectionRepository: getIt<CollectionRepository>(),
+          logger: appLogger,
+        )..add(
+            LoadNftDetailsEvent(
+              address: address,
+              identifier: identifier,
+              chainIdentifier: chain,
+            ),
+          ),
+        child: NftDetailsScreen(
+          name: name,
+          chain: chain,
+          address: address,
+          identifier: identifier,
+        ),
       ),
     );
   }

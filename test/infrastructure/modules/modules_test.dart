@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:glimmer_box/infrastructure/collections/endpoints/collections_endpoint.dart';
+import 'package:glimmer_box/infrastructure/collections/endpoints/nft_details_endpoint.dart';
 import 'package:glimmer_box/infrastructure/collections/endpoints/nfts_endpoint.dart';
 import 'package:glimmer_box/infrastructure/logger/dio_logging_interceptor.dart';
 import 'package:glimmer_box/injection_container.dart';
@@ -28,5 +29,10 @@ void main() {
   test('NftsEndpoint should be registered', () {
     final endpoint = getIt<NftsEndpoint>();
     expect(endpoint, isA<NftsEndpoint>());
+  });
+
+  test('NftDetailsEndpoint should be registered', () {
+    final endpoint = getIt<NftDetailsEndpoint>();
+    expect(endpoint, isA<NftDetailsEndpoint>());
   });
 }

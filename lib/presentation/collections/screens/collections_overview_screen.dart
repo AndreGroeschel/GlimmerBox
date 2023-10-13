@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:glimmer_box/application/collections/collection_event.dart';
-import 'package:glimmer_box/application/collections/collection_state.dart';
-import 'package:glimmer_box/application/collections/collections_bloc.dart';
+import 'package:glimmer_box/application/collections/blocs/collections_bloc.dart';
+import 'package:glimmer_box/application/collections/events/collection_event.dart';
+import 'package:glimmer_box/application/collections/states/collection_state.dart';
 import 'package:glimmer_box/application/constants.dart';
 import 'package:glimmer_box/presentation/collections/viewmodels/collection_view_model.dart';
 import 'package:glimmer_box/presentation/collections/widgets/collection_grid.dart';

@@ -1,6 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:glimmer_box/domain/collections/entities/nft.dart';
+import 'package:glimmer_box/domain/collections/entities/nft_details.dart';
 import 'package:glimmer_box/domain/collections/entities/nft_page.dart';
+import 'package:glimmer_box/infrastructure/collections/dtos/owner_dto.dart';
+import 'package:glimmer_box/infrastructure/collections/dtos/rarity_dto.dart';
+import 'package:glimmer_box/infrastructure/collections/dtos/trait_dto.dart';
 
 part 'nft_dto.freezed.dart';
 part 'nft_dto.g.dart';
@@ -35,9 +39,6 @@ class NftDto with _$NftDto {
     /// Metadata URL for the NFT
     @Default('') String metadataUrl,
 
-    /// Creation timestamp
-    @Default('') String createdAt,
-
     /// Last update timestamp
     @Default('') String updatedAt,
 
@@ -46,7 +47,26 @@ class NftDto with _$NftDto {
 
     /// If the NFT is NSFW
     @Default(false) bool isNsfw,
+
+    /// URL for any associated animation
+    @Default('') String animationUrl,
+
+    /// Flag indicating if the NFT is considered suspicious
+    @Default(false) bool isSuspicious,
+
+    /// The creator's address
+    @Default('') String creator,
+
+    /// List of owners of the NFT
+    @Default([]) List<OwnerDto> owners,
+
+    /// Associated traits of the NFT
+    @Default([]) List<TraitDto> traits,
+
+    /// Rarity data for the NFT
+    RarityDto? rarity,
   }) = _NftDto;
+
   const NftDto._();
 
   /// Creates a NftDto object from JSON
@@ -58,6 +78,25 @@ class NftDto with _$NftDto {
       name: name,
       description: description,
       imageUrl: imageUrl,
+      contract: contract,
+    );
+  }
+
+  NftDetails toNftDetails() {
+    return NftDetails(
+      identifier: identifier,
+      collection: collection,
+      tokenStandard: tokenStandard,
+      contract: contract,
+      name: name,
+      description: description,
+      imageUrl: imageUrl,
+      updatedAt: updatedAt,
+      isSuspicious: isSuspicious,
+      creator: creator,
+      owners: owners.map((dto) => dto.toOwner()).toList(),
+      traits: traits.map((dto) => dto.toTrait()).toList(),
+      rarity: rarity?.toRarity(),
     );
   }
 }
@@ -85,4 +124,14 @@ class NftsResponseDto with _$NftsResponseDto {
       next: next,
     );
   }
+}
+
+@freezed
+class NftWrapperDto with _$NftWrapperDto {
+  const factory NftWrapperDto({
+    required NftDto nft,
+  }) = _NftWrapperDto;
+
+  factory NftWrapperDto.fromJson(Map<String, dynamic> json) =>
+      _$NftWrapperDtoFromJson(json);
 }
