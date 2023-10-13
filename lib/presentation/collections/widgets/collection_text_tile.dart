@@ -7,7 +7,6 @@ class CollectionTextTile extends StatelessWidget {
     required this.viewModel,
     super.key,
     this.extent,
-    this.backgroundColor,
     this.bottomSpace,
   });
 
@@ -15,30 +14,44 @@ class CollectionTextTile extends StatelessWidget {
   final CollectionViewModel viewModel;
   final double? extent;
   final double? bottomSpace;
-  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
-    final child = Container(
-      color: backgroundColor ?? Colors.lightBlueAccent,
-      height: extent,
-      child: Center(
-        child: Text(viewModel.name, style: const TextStyle(fontSize: 16)),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white70, // Background color
+        borderRadius: BorderRadius.circular(16), // Rounded corners
+        boxShadow: [
+          // Shadow
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            offset: const Offset(0, 4),
+            blurRadius: 6,
+            spreadRadius: 2,
+          ),
+        ],
       ),
-    );
-
-    if (bottomSpace == null) {
-      return child;
-    }
-
-    return Column(
-      children: [
-        Expanded(child: child),
-        Container(
-          height: bottomSpace,
-          color: Colors.green,
-        ),
-      ],
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(
+            child: ClipRRect(
+              // Clip the image to match the container's rounded corners
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
+              ),
+              child: Placeholder(
+                color: Colors.lightBlue,
+                fallbackHeight: 100,
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(viewModel.name),
+          const SizedBox(height: 8),
+        ],
+      ),
     );
   }
 }

@@ -39,6 +39,8 @@ mixin _$NftDto {
   String get description => throw _privateConstructorUsedError;
 
   /// Image URL for the NFT
+// ignore: invalid_annotation_target
+  @JsonKey(name: 'image_url')
   String get imageUrl => throw _privateConstructorUsedError;
 
   /// Metadata URL for the NFT
@@ -73,7 +75,7 @@ abstract class $NftDtoCopyWith<$Res> {
       String tokenStandard,
       String name,
       String description,
-      String imageUrl,
+      @JsonKey(name: 'image_url') String imageUrl,
       String metadataUrl,
       String createdAt,
       String updatedAt,
@@ -174,7 +176,7 @@ abstract class _$$NftDtoImplCopyWith<$Res> implements $NftDtoCopyWith<$Res> {
       String tokenStandard,
       String name,
       String description,
-      String imageUrl,
+      @JsonKey(name: 'image_url') String imageUrl,
       String metadataUrl,
       String createdAt,
       String updatedAt,
@@ -269,7 +271,7 @@ class _$NftDtoImpl extends _NftDto {
       this.tokenStandard = '',
       this.name = '',
       this.description = '',
-      this.imageUrl = '',
+      @JsonKey(name: 'image_url') this.imageUrl = '',
       this.metadataUrl = '',
       this.createdAt = '',
       this.updatedAt = '',
@@ -311,8 +313,9 @@ class _$NftDtoImpl extends _NftDto {
   final String description;
 
   /// Image URL for the NFT
+// ignore: invalid_annotation_target
   @override
-  @JsonKey()
+  @JsonKey(name: 'image_url')
   final String imageUrl;
 
   /// Metadata URL for the NFT
@@ -413,7 +416,7 @@ abstract class _NftDto extends NftDto {
       final String tokenStandard,
       final String name,
       final String description,
-      final String imageUrl,
+      @JsonKey(name: 'image_url') final String imageUrl,
       final String metadataUrl,
       final String createdAt,
       final String updatedAt,
@@ -450,6 +453,8 @@ abstract class _NftDto extends NftDto {
   @override
 
   /// Image URL for the NFT
+// ignore: invalid_annotation_target
+  @JsonKey(name: 'image_url')
   String get imageUrl;
   @override
 

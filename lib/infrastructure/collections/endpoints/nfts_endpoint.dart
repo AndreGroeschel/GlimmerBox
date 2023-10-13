@@ -32,8 +32,8 @@ abstract class NftsEndpoint {
   })
   Future<NftsResponseDto> getNfts({
     @Header('X-API-KEY') required String apiKey,
-    required String chainIdentifier,
-    required String address,
+    @Path('chainIdentifier') required String chainIdentifier,
+    @Path('address') required String address,
     @Query('limit') int limit = 50,
     @Query('next') String next = '',
   });

@@ -48,7 +48,7 @@ class _NftsEndpoint implements NftsEndpoint {
     )
             .compose(
               _dio.options,
-              '/chain/{chainIdentifier}/contract/{address}/nfts',
+              '/chain/${chainIdentifier}/contract/${address}/nfts',
               queryParameters: queryParameters,
               data: _data,
             )

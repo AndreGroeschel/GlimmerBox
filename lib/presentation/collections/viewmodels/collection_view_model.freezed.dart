@@ -19,6 +19,7 @@ mixin _$CollectionViewModel {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get imagePath => throw _privateConstructorUsedError;
+  List<Contract> get contracts => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CollectionViewModelCopyWith<CollectionViewModel> get copyWith =>
@@ -31,7 +32,11 @@ abstract class $CollectionViewModelCopyWith<$Res> {
           CollectionViewModel value, $Res Function(CollectionViewModel) then) =
       _$CollectionViewModelCopyWithImpl<$Res, CollectionViewModel>;
   @useResult
-  $Res call({String name, String description, String imagePath});
+  $Res call(
+      {String name,
+      String description,
+      String imagePath,
+      List<Contract> contracts});
 }
 
 /// @nodoc
@@ -50,6 +55,7 @@ class _$CollectionViewModelCopyWithImpl<$Res, $Val extends CollectionViewModel>
     Object? name = null,
     Object? description = null,
     Object? imagePath = null,
+    Object? contracts = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -64,6 +70,10 @@ class _$CollectionViewModelCopyWithImpl<$Res, $Val extends CollectionViewModel>
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
+      contracts: null == contracts
+          ? _value.contracts
+          : contracts // ignore: cast_nullable_to_non_nullable
+              as List<Contract>,
     ) as $Val);
   }
 }
@@ -76,7 +86,11 @@ abstract class _$$CollectionViewModelImplCopyWith<$Res>
       __$$CollectionViewModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String description, String imagePath});
+  $Res call(
+      {String name,
+      String description,
+      String imagePath,
+      List<Contract> contracts});
 }
 
 /// @nodoc
@@ -93,6 +107,7 @@ class __$$CollectionViewModelImplCopyWithImpl<$Res>
     Object? name = null,
     Object? description = null,
     Object? imagePath = null,
+    Object? contracts = null,
   }) {
     return _then(_$CollectionViewModelImpl(
       name: null == name
@@ -107,6 +122,10 @@ class __$$CollectionViewModelImplCopyWithImpl<$Res>
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
+      contracts: null == contracts
+          ? _value._contracts
+          : contracts // ignore: cast_nullable_to_non_nullable
+              as List<Contract>,
     ));
   }
 }
@@ -115,8 +134,12 @@ class __$$CollectionViewModelImplCopyWithImpl<$Res>
 
 class _$CollectionViewModelImpl extends _CollectionViewModel {
   const _$CollectionViewModelImpl(
-      {this.name = '', this.description = '', this.imagePath = ''})
-      : super._();
+      {this.name = '',
+      this.description = '',
+      this.imagePath = '',
+      final List<Contract> contracts = const []})
+      : _contracts = contracts,
+        super._();
 
   @override
   @JsonKey()
@@ -127,10 +150,18 @@ class _$CollectionViewModelImpl extends _CollectionViewModel {
   @override
   @JsonKey()
   final String imagePath;
+  final List<Contract> _contracts;
+  @override
+  @JsonKey()
+  List<Contract> get contracts {
+    if (_contracts is EqualUnmodifiableListView) return _contracts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_contracts);
+  }
 
   @override
   String toString() {
-    return 'CollectionViewModel(name: $name, description: $description, imagePath: $imagePath)';
+    return 'CollectionViewModel(name: $name, description: $description, imagePath: $imagePath, contracts: $contracts)';
   }
 
   @override
@@ -142,11 +173,14 @@ class _$CollectionViewModelImpl extends _CollectionViewModel {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.imagePath, imagePath) ||
-                other.imagePath == imagePath));
+                other.imagePath == imagePath) &&
+            const DeepCollectionEquality()
+                .equals(other._contracts, _contracts));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, description, imagePath);
+  int get hashCode => Object.hash(runtimeType, name, description, imagePath,
+      const DeepCollectionEquality().hash(_contracts));
 
   @JsonKey(ignore: true)
   @override
@@ -160,7 +194,8 @@ abstract class _CollectionViewModel extends CollectionViewModel {
   const factory _CollectionViewModel(
       {final String name,
       final String description,
-      final String imagePath}) = _$CollectionViewModelImpl;
+      final String imagePath,
+      final List<Contract> contracts}) = _$CollectionViewModelImpl;
   const _CollectionViewModel._() : super._();
 
   @override
@@ -169,6 +204,8 @@ abstract class _CollectionViewModel extends CollectionViewModel {
   String get description;
   @override
   String get imagePath;
+  @override
+  List<Contract> get contracts;
   @override
   @JsonKey(ignore: true)
   _$$CollectionViewModelImplCopyWith<_$CollectionViewModelImpl> get copyWith =>

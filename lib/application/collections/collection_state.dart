@@ -13,7 +13,6 @@ class CollectionState with _$CollectionState {
   // Collected has loaded
   const factory CollectionState.loaded(CollectionPage collectionPage) =
       CollectionLoaded;
-
   // State when an error occurs
   const factory CollectionState.error(String message) = CollectionError;
 }

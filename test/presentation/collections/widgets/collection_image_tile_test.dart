@@ -20,6 +20,7 @@ void main() {
     final mockViewModel = MockCollectionViewModel();
     when(() => mockViewModel.imagePath)
         .thenReturn('http://example.com/image.jpg');
+    when(() => mockViewModel.name).thenReturn('Collection name');
 
     await tester.pumpWidget(
       MaterialApp(
