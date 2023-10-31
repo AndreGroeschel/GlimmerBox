@@ -45,9 +45,14 @@ class NftTile extends StatelessWidget {
               ),
               // child: Container(),
               child: OctoImage(
+                fit: BoxFit.cover,
+                fadeInDuration: const Duration(milliseconds: 200),
                 image: CachedNetworkImageProvider(
                   viewModel.imageUrl,
                 ),
+                // progressIndicatorBuilder:
+                //     OctoProgressIndicator.circularProgressIndicator(),
+                // placeholderBuilder: ,
               ),
             ),
           ),

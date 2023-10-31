@@ -18,7 +18,7 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
     LoadCollections event,
     Emitter<CollectionState> emit,
   ) async {
-    logger.i('Loading next page with cursor ${event.nextCursor}');
+    logger.d('Loading next page with cursor ${event.nextCursor}');
     final collectionPageOrFailure =
         await collectionRepository.getCollectionsPage(
       chainIdentifier: event.chainIdentifier,

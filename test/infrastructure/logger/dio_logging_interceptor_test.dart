@@ -16,6 +16,7 @@ void main() {
 
   setUp(() {
     mockLogger = MockLogger();
+    Logger.level = Level.debug;
     interceptor = DioLoggingInterceptor(logger: mockLogger);
   });
 
@@ -24,7 +25,7 @@ void main() {
 
     interceptor.onRequest(options, RequestInterceptorHandler());
 
-    verify(() => mockLogger.i('Sending request: GET /test')).called(1);
+    verify(() => mockLogger.d('Sending request: GET /test')).called(1);
   });
 
   test('should log incoming responses', () {
@@ -36,7 +37,7 @@ void main() {
 
     interceptor.onResponse(response, ResponseInterceptorHandler());
 
-    verify(() => mockLogger.i('Received response: 200 OK')).called(1);
+    verify(() => mockLogger.d('Received response: 200 OK')).called(1);
   });
 
   test('should log errors', () {
