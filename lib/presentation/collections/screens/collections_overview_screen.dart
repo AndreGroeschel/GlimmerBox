@@ -24,8 +24,9 @@ class CollectionsOverviewScreen extends StatelessWidget {
             initial: () => const Center(child: Text('Initial State')),
             loading: () => const Center(child: CircularProgressIndicator()),
             loaded: (collectionPage) {
-              //return Text("data");
+              // only display collections that have an image
               final collectionViewModels = collectionPage.collections
+                  .where((element) => element.imagePath.isNotEmpty)
                   .map(
                     (e) => CollectionViewModel.fromCollection(collection: e),
                   )

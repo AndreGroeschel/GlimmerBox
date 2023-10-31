@@ -24,7 +24,7 @@ class DioLoggingInterceptor extends Interceptor {
   /// Logs the HTTP method and URL of the request.
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    logger.i('Sending request: ${options.method} ${options.path}');
+    logger.d('Sending request: ${options.method} ${options.path}');
     super.onRequest(options, handler);
   }
 
@@ -37,7 +37,7 @@ class DioLoggingInterceptor extends Interceptor {
     Response<dynamic> response,
     ResponseInterceptorHandler handler,
   ) {
-    logger.i('Received response: ${response.statusCode} ${response.data}');
+    logger.d('Received response: ${response.statusCode} ${response.data}');
     super.onResponse(response, handler);
   }
 

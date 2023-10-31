@@ -37,6 +37,7 @@ class CollectionImageTile extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
+            height: 150,
             child: ClipRRect(
               // Clip the image to match the container's rounded corners
               borderRadius: const BorderRadius.only(
@@ -44,10 +45,14 @@ class CollectionImageTile extends StatelessWidget {
                 topRight: Radius.circular(16),
               ),
               child: OctoImage(
+                fit: BoxFit.cover,
+                fadeInDuration: const Duration(milliseconds: 200),
                 image: CachedNetworkImageProvider(
                   viewModel.imagePath,
                 ),
-                placeholderBuilder: OctoPlaceholder.circularProgressIndicator(),
+                // progressIndicatorBuilder:
+                //     OctoProgressIndicator.circularProgressIndicator(),
+                // placeholderBuilder: ,
               ),
             ),
           ),

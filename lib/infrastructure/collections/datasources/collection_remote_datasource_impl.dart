@@ -37,7 +37,7 @@ class CollectionRemoteDataSourceImpl implements CollectionRemoteDataSource {
         limit: limit,
         next: next,
       );
-      _logger.i(response);
+      _logger.d(response);
       return Right<OpenSeaApiFailure, CollectionsResponseDto>(response);
     } catch (exception) {
       if (exception.runtimeType == DioException) {
