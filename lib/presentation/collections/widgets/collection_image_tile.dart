@@ -47,8 +47,10 @@ class CollectionImageTile extends StatelessWidget {
               child: OctoImage(
                 fit: BoxFit.cover,
                 fadeInDuration: const Duration(milliseconds: 200),
+                placeholderBuilder: OctoPlaceholder.circularProgressIndicator(),
                 image: CachedNetworkImageProvider(
                   viewModel.imagePath,
+                  maxHeight: 150,
                 ),
                 // progressIndicatorBuilder:
                 //     OctoProgressIndicator.circularProgressIndicator(),
